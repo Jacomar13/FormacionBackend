@@ -30,7 +30,7 @@ public class Main {
                 Person p = new Person();
 
                 //Mandamos un mensaje en el caso de que el nombre sea nulo
-                if (partes[0] == "") {
+                if (partes[0].equals("")) {
                     throw new InvalidLineFormatException(texto + "    -> El nombre es obligatorio. Hay 3 espacios en el campo y esto se considera como blank.");
                 }
                 if ( contadorDeDosPuntos(texto, ':') == 1){
@@ -40,7 +40,7 @@ public class Main {
                     throw new InvalidLineFormatException(texto + "  -> Faltan dos delimitadores de campo");
                 }
                 if (partes.length >=1 ) {p.nombre = partes[0];}
-                if (partes.length >=2 && partes[1] != "") {p.pueblo = partes[1];}
+                if (partes.length >=2 && !partes[1].equals("")) {p.pueblo = partes[1];}
                 else {p.pueblo = "desconocido";}
                 if (partes.length >=3) {p.edad = Integer.parseInt(partes[2]);}
                 else {p.edad = 0;}
@@ -62,13 +62,13 @@ public class Main {
     //Método para calcular el número de veces que se repite un carácter en un String
     public static int contadorDeDosPuntos(String texto, char caracter) {
         int posicion, contador = 0;
-        //se busca la primera vez que aparece
+        //Se busca la primera vez que aparece
         posicion = texto.indexOf(caracter);
-        //mientras se encuentre el caracter
+        //Mientras se encuentre el caracter
         while (posicion != -1) {
             //se cuenta
             contador++;
-            //se sigue buscando a partir de la posición siguiente a la encontrada
+            //Se sigue buscando a partir de la posición siguiente a la encontrada
             posicion = texto.indexOf(caracter, posicion + 1);
         }
         return contador;
