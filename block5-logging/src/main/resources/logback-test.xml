@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <!-- Vamos a crear una configuración que permita mostrar por terminal todos los logs menos los de error -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Definimos el patrón -->
+            <pattern>%d %p %logger{1} - %m%n</pattern>
+        </encoder>
+        <!-- Con esto creamos un filtro el cual consigue que, cuando el log sea de ERROR que no lo muestre pero el resto si -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- Vamos a guardar en un fichero .log, los logs tipo ERROR -->
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <!-- Elegimos el fichero y la carpeta -->
+        <file>logs/my.log</file>
+        <append>true</append>
+        <!-- Definimos el patrón -->
+        <encoder>
+            <pattern>%d %p %logger{1} - %m%n</pattern>
+        </encoder>
+        <!-- Filtro que permite únicamente los logs ERROR -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <!-- Con esto lo que conseguimos es que desde INFO a inferiores, puedan utilizar las funciones previamente definidas en este fichero -->
+    <root level="info">
+        <appender-ref ref="console" />
+        <appender-ref ref="file" />
+    </root>
+
+</configuration>
