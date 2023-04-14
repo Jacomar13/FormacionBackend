@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Spring Profiles LOCAL" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="javier.correa.block5profiles.Block5ProfilesApplication" />
+    <module name="block5-profiles" />
+    <option name="VM_PARAMETERS" value="-Dspring.config.location=file:src/main/resources/application-loc.yml" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
