@@ -1,3 +1,4 @@
 greeting: Hello world!
+saludo: ${greeting}
 my:
   number: 100
