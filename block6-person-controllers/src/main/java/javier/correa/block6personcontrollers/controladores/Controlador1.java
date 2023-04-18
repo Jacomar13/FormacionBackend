@@ -17,8 +17,10 @@ public class Controlador1 {
     Persona p;
 
 
+    //Definimos una lista de las ciudades para poder posteriormente, mostrarle todas las ciudades creadas posteriormente
+    private ArrayList<Ciudad> ciudades= new ArrayList<>();
 
-    private List<Ciudad> ciudades= new ArrayList<>();
+    //Recibimos una persona por Header con método GET y la imprimimos por terminal para comprobar que se está enviando correctamente
 
     @GetMapping("/controlador1/addPersona")
     public void recibirPersona (@RequestHeader String nombre, @RequestHeader String poblacion, @RequestHeader int edad){
@@ -27,9 +29,13 @@ public class Controlador1 {
         p.setEdad(edad);
         System.out.println(p);
     }
+
+    //Creamos una función que devuelve la persona creada para poder utilizarla en el controlador2
     public Persona getPersona() {
         return p;
     }
+
+    //Recibimos una ciudad  y la añadimos al array de ciudades, también la mostramos por consola para comprobar que se esté pasando correctamente
 
     @PostMapping("/controlador1/addCiudad")
     public void addCiudades(@RequestBody Ciudad ciudad){
@@ -37,6 +43,7 @@ public class Controlador1 {
         System.out.println(ciudad);
     }
 
+    //Función que devuelve las ciudades escritas
     public List<Ciudad> getCiudades(){
         return ciudades;
     }
@@ -81,8 +88,4 @@ public class Controlador1 {
                 return null;
         }
     }
-
-
-
-
 }

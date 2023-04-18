@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 public class Controlador2 {
 
+    //Utilizando la anotación de Auto
     @Autowired
     Controlador1 controlador1;
 
