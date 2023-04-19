@@ -29,13 +29,13 @@ public class GreetingController {
         return id;
     }
 
-    /*@PutMapping("/post")
+    @PutMapping("/post")
     public Map<String, Integer> putPassVariables(@RequestParam Map<String, String> paramsRequested){
         Map <String, Integer> nombreMap = new HashMap<String, Integer>();
         for (Map.Entry<String,String> entry : paramsRequested.entrySet()) {
             nombreMap.put(entry.getKey(), Integer.valueOf(entry.getValue()));
         }
         return nombreMap;
-    }*/
+    }
 
 }
