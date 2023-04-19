@@ -1,7 +1,6 @@
 package javier.correa.block6pathvariableheaders.controllers;
 
 import javier.correa.block6pathvariableheaders.objectsAndRecords.Greeting;
-import javier.correa.block6pathvariableheaders.objectsAndRecords.Person;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -20,8 +19,8 @@ public class GreetingController {
     }
 
     @PostMapping("/sendbody")
-    public Person postSendBody(@RequestBody Person personPassed){
-        return personPassed;
+    public Greeting postSendBody(@RequestBody Greeting greetingPassed){
+        return greetingPassed;
     }
 
     @GetMapping("/user/{id}")
