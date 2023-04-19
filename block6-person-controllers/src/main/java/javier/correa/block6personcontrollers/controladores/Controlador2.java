@@ -1,31 +1,35 @@
 package javier.correa.block6personcontrollers.controladores;
 
-import javier.correa.block6personcontrollers.servicios.Ciudad;
-import javier.correa.block6personcontrollers.servicios.Persona;
+import javier.correa.block6personcontrollers.objetos.Ciudad;
+import javier.correa.block6personcontrollers.objetos.Persona;
+import javier.correa.block6personcontrollers.servicios.CiudadService;
+import javier.correa.block6personcontrollers.servicios.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
 @RestController
+@RequestMapping("/controlador2")
+
 public class Controlador2 {
 
-    //Utilizando la anotación de Auto
     @Autowired
-    Controlador1 controlador1;
+    PersonaService personaService;
+    @Autowired
+    CiudadService ciudadService;
 
-    @GetMapping("/controlador2/getPersona")
-    public Persona devolverPersona(){
-        Persona p = controlador1.getPersona();
-        p.setEdad(p.getEdad()* 2);
-        return p;
+    @GetMapping("/getPersona")
+    public Persona mostrarPersona(){
+        return personaService.getPersona();
     }
 
-    @GetMapping("/controlador2/getCiudades")
-    public List<Ciudad> devolverCiudadess() {
-        return controlador1.getCiudades();
+    @GetMapping("/getCiudades")
+    public ArrayList<Ciudad> mostrarCiudades(){
+        ArrayList<Ciudad> ciudades = ciudadService.getCiudades();
+        return ciudades;
     }
-
 }

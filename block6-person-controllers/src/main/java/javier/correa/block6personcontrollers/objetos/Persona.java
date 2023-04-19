@@ -1,9 +1,7 @@
-package javier.correa.block6personcontrollers.servicios;
+package javier.correa.block6personcontrollers.objetos;
 
 
-import org.springframework.stereotype.Service;
 
-@Service
 public class Persona {
     private String nombre;
     private String poblacion;
@@ -44,10 +42,8 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona{" +
-                "nombre='" + nombre + '\'' +
+        return "nombre='" + nombre + '\'' +
                 ", población='" + poblacion + '\'' +
-                ", edad=" + edad +
-                '}';
+                ", edad=" + edad;
     }
 }

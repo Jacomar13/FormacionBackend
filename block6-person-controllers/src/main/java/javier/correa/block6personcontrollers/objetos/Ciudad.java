@@ -1,8 +1,6 @@
-package javier.correa.block6personcontrollers.servicios;
+package javier.correa.block6personcontrollers.objetos;
 
-import org.springframework.stereotype.Service;
 
-@Service
 public class Ciudad {
     private String nombreCiudad;
     private int numeroHabitantes;
@@ -33,9 +31,7 @@ public class Ciudad {
 
     @Override
     public String toString() {
-        return "Ciudad{" +
-                "nombreCiudad='" + nombreCiudad + '\'' +
-                ", numeroHabitantes=" + numeroHabitantes +
-                '}';
+        return "nombreCiudad='" + nombreCiudad + '\'' +
+                ", numeroHabitantes=" + numeroHabitantes;
     }
 }

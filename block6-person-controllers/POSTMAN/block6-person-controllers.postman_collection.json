@@ -7,25 +7,101 @@
 	"item": [
 		{
 			"name": "CrearPersona",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [
+					{
+						"key": "nombre",
+						"value": "Javier",
+						"type": "default"
+					},
+					{
+						"key": "poblacion",
+						"value": "Jaen",
+						"type": "default"
+					},
+					{
+						"key": "edad",
+						"value": "19",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/controlador1/addPersona",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"controlador1",
+						"addPersona"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "RecibirPersona",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/controlador2/getPersona",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"controlador2",
+						"getPersona"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "CrearCiudad",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombreCiudad\" : \"Pamplona\",\r\n    \"numeroHabitantes\" : 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/controlador1/addCiudad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"controlador1",
+						"addCiudad"
+					]
+				}
 			},
 			"response": []
 		},
@@ -33,7 +109,19 @@
 			"name": "RecibirCiudades",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/controlador2/getCiudades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"controlador2",
+						"getCiudades"
+					]
+				}
 			},
 			"response": []
 		},
@@ -41,7 +129,20 @@
 			"name": "recibirBeans",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/controlador3/bean/bean3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"controlador3",
+						"bean",
+						"bean3"
+					]
+				}
 			},
 			"response": []
 		}
