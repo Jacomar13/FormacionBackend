@@ -32,7 +32,7 @@ public class GreetingController {
     public Map<String, String > putPassVariables(@RequestParam Map<String, String> paramsRequested){
         Map <String, String> nombreMap = new HashMap<String, String>();
         for (Map.Entry<String,String> entry : paramsRequested.entrySet()) {
-            
+
             nombreMap.put(entry.getKey(), entry.getValue());
         }
         return nombreMap;
