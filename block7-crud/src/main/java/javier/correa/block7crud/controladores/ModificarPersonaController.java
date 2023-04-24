@@ -16,8 +16,6 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/persona")
 public class ModificarPersonaController {
     @Autowired
-    PersonaServiceImpl personaService;
-    @Autowired
     PersonaRepository personaRepository;
 
     @PutMapping("/{id}")
