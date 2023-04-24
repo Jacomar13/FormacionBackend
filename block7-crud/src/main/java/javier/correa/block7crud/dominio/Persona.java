@@ -6,11 +6,11 @@ import jakarta.persistence.Id;
 import javier.correa.block7crud.controladores.dto.PersonaInputDto;
 import javier.correa.block7crud.controladores.dto.PersonaOutputDto;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-
-
+@NoArgsConstructor
 public class Persona {
     @Id
     @GeneratedValue
@@ -33,4 +33,5 @@ public class Persona {
     public PersonaOutputDto personaToOutputDto(){
         return new PersonaOutputDto(this.id, this.nombre, this.edad, this.poblacion);
     }
+
 }
