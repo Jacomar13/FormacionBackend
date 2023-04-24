@@ -13,5 +13,5 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequestMapping("/persona")
 public class BorrarPersonaController {
-    
+
 }

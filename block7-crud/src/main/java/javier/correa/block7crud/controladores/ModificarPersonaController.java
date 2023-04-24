@@ -15,5 +15,28 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequestMapping("/persona")
 public class ModificarPersonaController {
+    @Autowired
+    PersonaServiceImpl personaService;
+    @Autowired
+    PersonaRepository personaRepository;
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Persona> updatePersona(@PathVariable int id, @RequestBody PersonaInputDto personaInputDto){
+        Persona persona = personaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona no encontrada"));
+
+        if (personaInputDto.getNombre() != null) {
+            persona.setNombre(personaInputDto.getNombre());
+        }
+        if (personaInputDto.getEdad() != null) {
+            persona.setEdad(personaInputDto.getEdad());
+        }
+        if (personaInputDto.getPoblacion() != null) {
+            persona.setPoblacion(personaInputDto.getPoblacion());
+        }
+
+        Persona personaGuardada = personaRepository.save(persona);
+        System.out.println(personaGuardada);
+        return ResponseEntity.ok(personaGuardada);
+    }
 }
