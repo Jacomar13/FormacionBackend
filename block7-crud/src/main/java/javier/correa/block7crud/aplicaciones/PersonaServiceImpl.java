@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PersonaServiceImpl implements PersonaService{
 
@@ -22,6 +25,15 @@ public class PersonaServiceImpl implements PersonaService{
     @Override
     public PersonaOutputDto getPersonaById(int id) {
         return personaRepository.findById(id).orElseThrow().personaToOutputDto();
+    }
+
+    @Override
+    public List<PersonaOutputDto> getPersonaByNombre(String nombre) {
+        List<Persona> listPersona = personaRepository.findByNombre(nombre);
+        List<PersonaOutputDto> listPersonaOutput = listPersona.stream()
+                .map(Persona::personaToOutputDto)
+                .toList();
+        return listPersonaOutput;
     }
 
     @Override
