@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface PersonaService {
 
-    PersonaOutputDto addPersona(PersonaInputDto persona);
+    PersonaOutputDto addPersona(PersonaInputDto persona) throws Exception;
 
     PersonaOutputDto getPersonaById(int id);
 
     List<PersonaOutputDto> getPersonabyUsuario(String name);
 
-    Iterable<PersonaOutputDto> getAllPersonas(int pagenumber, int pageSize);
+    Iterable<PersonaOutputDto> getAllPersonas(int pageNumber, int pageSize);
 
 }

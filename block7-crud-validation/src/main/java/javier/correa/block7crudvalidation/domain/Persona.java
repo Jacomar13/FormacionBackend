@@ -20,8 +20,7 @@ public class Persona {
     @GeneratedValue
     private int id_persona;
 
-    @Column(nullable = false)
-    @Size(min = 6, max = 10)
+    @Column(nullable = false, length = 10)
     private String usuario;
 
     @Column(nullable = false)

@@ -1,32 +1,30 @@
 package javier.correa.block7crudvalidation.controllers;
 
-import javier.correa.block7crudvalidation.application.PersonaServiceImpl;
+import jakarta.persistence.EntityNotFoundException;
+import javier.correa.block7crudvalidation.application.PersonaService;
 import javier.correa.block7crudvalidation.controllers.dto.PersonaInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/persona")
 public class PersonaController {
     @Autowired
-    PersonaServiceImpl personaService;
+    PersonaService personaService;
 
 
     @PostMapping
     public ResponseEntity<PersonaOutputDto> addPersona(@RequestBody PersonaInputDto persona) throws Exception {
-        try{
-            return ResponseEntity.status(HttpStatus.CREATED).body(personaService.addPersona(persona));
-        } catch (Exception e){
-            if (persona.getUsuario()==null){throw new Exception("Usuario no puede ser nulo"); return new ResponseEntity<>(HttpStatus.BAD_REQUEST)}
-
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
+        return ResponseEntity.status(HttpStatus.CREATED).body(personaService.addPersona(persona));
     }
 
     @GetMapping("/{id}")
@@ -46,4 +44,12 @@ public class PersonaController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping
+    public Iterable<PersonaOutputDto> showAllPersonas(
+            @RequestParam(defaultValue = "0", required = false) int pageNumber,
+            @RequestParam(defaultValue = "25", required = false) int pageSize) {
+        return personaService.getAllPersonas(pageNumber, pageSize);
+
+    }
+
 }
