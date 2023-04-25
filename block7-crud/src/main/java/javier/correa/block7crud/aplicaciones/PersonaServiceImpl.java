@@ -6,10 +6,11 @@ import javier.correa.block7crud.dominio.Persona;
 import javier.correa.block7crud.repositorio.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PersonaServiceImpl implements PersonaService{
@@ -53,9 +54,23 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public PersonaOutputDto updatePersona(int id, PersonaInputDto persona) {
-        personaRepository.findById(id).orElseThrow();
-        return personaRepository.save(new Persona(persona)).personaToOutputDto();
+    public Persona updatePersona(int id, PersonaInputDto personaInputDto) {
+        Persona persona = personaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona no encontrada"));
+        if (personaInputDto.getNombre() != null) {
+            persona.setNombre(personaInputDto.getNombre());
+        }
+        if (personaInputDto.getEdad() != null) {
+            persona.setEdad(personaInputDto.getEdad());
+        }
+        if (personaInputDto.getPoblacion() != null) {
+            persona.setPoblacion(personaInputDto.getPoblacion());
+        }
+
+        Persona personaGuardada = personaRepository.save(persona);
+        System.out.println(personaGuardada);
+
+        return personaGuardada;
     }
 
 }

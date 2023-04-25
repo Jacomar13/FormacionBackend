@@ -2,7 +2,6 @@ package javier.correa.block7crud.controladores;
 
 import javier.correa.block7crud.aplicaciones.PersonaService;
 import javier.correa.block7crud.controladores.dto.PersonaOutputDto;
-import javier.correa.block7crud.repositorio.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/persona")
 public class MostrarPersonaController {
-
-    @Autowired
-    PersonaRepository personaRepository;
 
     @Autowired
     PersonaService personaService;
