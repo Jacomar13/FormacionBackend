@@ -2,9 +2,9 @@ package javier.correa.block7crudvalidation.application;
 
 import javier.correa.block7crudvalidation.controllers.dto.PersonaInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
-import javier.correa.block7crudvalidation.domain.EntityNotFoundException;
+import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
 import javier.correa.block7crudvalidation.domain.Persona;
-import javier.correa.block7crudvalidation.domain.UnprocesableException;
+import javier.correa.block7crudvalidation.domain.exception.UnprocesableException;
 import javier.correa.block7crudvalidation.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

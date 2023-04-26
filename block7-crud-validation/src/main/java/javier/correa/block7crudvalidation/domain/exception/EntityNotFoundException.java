@@ -1,4 +1,4 @@
-package javier.correa.block7crudvalidation.domain;
+package javier.correa.block7crudvalidation.domain.exception;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;

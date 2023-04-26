@@ -1,4 +1,4 @@
-package javier.correa.block7crudvalidation.domain;
+package javier.correa.block7crudvalidation.domain.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
