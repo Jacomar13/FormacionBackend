@@ -1,9 +1,8 @@
 package javier.correa.block7crudvalidation.application;
 
-import jakarta.persistence.EntityNotFoundException;
 import javier.correa.block7crudvalidation.controllers.dto.PersonaInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
-import javier.correa.block7crudvalidation.domain.NotFoundException;
+import javier.correa.block7crudvalidation.domain.EntityNotFoundException;
 import javier.correa.block7crudvalidation.domain.Persona;
 import javier.correa.block7crudvalidation.domain.UnprocesableException;
 import javier.correa.block7crudvalidation.repository.PersonaRepository;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class PersonaServiceImpl implements PersonaService{
@@ -34,16 +34,18 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public PersonaOutputDto getPersonaById(Integer id) throws NotFoundException{
-        return personaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("No se ha encontrado ninguna persona con el ID: " + id))
-                .personaToOutputDto();
+    public PersonaOutputDto getPersonaById(Integer id) throws EntityNotFoundException {
+        Optional<Persona> personaOptional = personaRepository.findById(id);
+        Persona persona = personaOptional.orElseThrow(() -> new EntityNotFoundException("No se ha encontrado la persona con id " + id, 404));
+        PersonaOutputDto personaOutputDto = persona.personaToOutputDto();
+        return personaOutputDto;
     }
 
     @Override
-    public List<PersonaOutputDto> getPersonabyUsuario(String user) throws NotFoundException{
+    public List<PersonaOutputDto> getPersonabyUsuario(String user) throws EntityNotFoundException {
         List<Persona> listPersona = personaRepository.findByUsuario(user)
-                .orElseThrow(() -> new NotFoundException("No se ha encontrado ninguna persona con el nombre de usuario: " + user));
+                .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado ninguna persona con el nombre de usuario:" + user,404));
+        if (Objects.isNull(personaRepository.findByUsuario(user))) {throw new EntityNotFoundException("No se ha encontrado ninguna persona con el nombre de usuario: " + user, 404);}
         List<PersonaOutputDto> personaOutputDtoList = listPersona.stream()
                 .map(Persona::personaToOutputDto)
                 .toList();
