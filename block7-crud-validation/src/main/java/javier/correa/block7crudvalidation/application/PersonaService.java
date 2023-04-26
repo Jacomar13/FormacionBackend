@@ -9,7 +9,7 @@ public interface PersonaService {
 
     PersonaOutputDto addPersona(PersonaInputDto persona) throws Exception;
 
-    PersonaOutputDto getPersonaById(int id);
+    PersonaOutputDto getPersonaById(Integer id);
 
     List<PersonaOutputDto> getPersonabyUsuario(String name);
 
