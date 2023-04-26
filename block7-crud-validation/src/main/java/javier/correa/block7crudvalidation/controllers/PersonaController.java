@@ -30,13 +30,10 @@ public class PersonaController {
 
     @GetMapping("/usuario/{user}")
     public ResponseEntity showPersonaByUser(@PathVariable String user) throws EntityNotFoundException {
-        try {
-
             return new ResponseEntity<>(personaService.getPersonabyUsuario(user), HttpStatus.OK);
-        } catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
-        }
     }
+
+
     @GetMapping
     public Iterable<PersonaOutputDto> showAllPersonas (
             @RequestParam(defaultValue = "0", required = false) int pageNumber,

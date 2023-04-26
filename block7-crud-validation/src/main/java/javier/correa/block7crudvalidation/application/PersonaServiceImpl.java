@@ -41,11 +41,14 @@ public class PersonaServiceImpl implements PersonaService{
         return personaOutputDto;
     }
 
+
     @Override
     public List<PersonaOutputDto> getPersonabyUsuario(String user) throws EntityNotFoundException {
-        List<Persona> listPersona = personaRepository.findByUsuario(user)
-                .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado ninguna persona con el nombre de usuario:" + user,404));
-        if (Objects.isNull(personaRepository.findByUsuario(user))) {throw new EntityNotFoundException("No se ha encontrado ninguna persona con el nombre de usuario: " + user, 404);}
+        List<Persona> listPersona = personaRepository.findByUsuario(user);
+
+        if (listPersona.isEmpty())
+            throw new EntityNotFoundException("No se ha encontrado ninguna persona con el nombre de usuario: " + user, 404);
+
         List<PersonaOutputDto> personaOutputDtoList = listPersona.stream()
                 .map(Persona::personaToOutputDto)
                 .toList();

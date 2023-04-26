@@ -21,10 +21,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<CustomError> handleEntityNotFoundException(EntityNotFoundException ex) {
-        CustomError error = new CustomError();
-        error.setTimestamp(new Date());
-        error.setHttpCode(HttpStatus.NOT_FOUND.value());
-        error.setMensaje(ex.getMessage());
+        CustomError error = new CustomError(new Date(), ex.getMessage(),HttpStatus.NOT_FOUND.value());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
