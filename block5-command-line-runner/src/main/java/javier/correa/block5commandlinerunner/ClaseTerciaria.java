@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ClaseTerciaria implements CommandLineRunner{
 
     public void ClaseTerciaria(ArrayList<String> mensaje){
-        System.out.println("Hola desde clase tercera");
+        System.out.println("Hola desde la tercera clase");
         for (String arg : mensaje) {
             System.out.println(arg + " ");
         }
