@@ -7,7 +7,7 @@ public class Person {
 
     public Person() {
     }
-
+    //Cambios
     public Person(String nombre, String pueblo, int edad) {
         this.nombre = nombre;
         this.pueblo = pueblo;

@@ -73,7 +73,7 @@ public class Main {
         }
         return contador;
     }
-
+    //Cambios
     public static void filtroPorEdad() {
         System.out.println();
         System.out.println("////Filtro por edades");
