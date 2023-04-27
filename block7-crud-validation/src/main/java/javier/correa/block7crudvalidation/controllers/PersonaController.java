@@ -39,7 +39,6 @@ public class PersonaController {
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "25", required = false) int pageSize) {
         return personaService.getAllPersonas(pageNumber, pageSize);
-
     }
 
 }

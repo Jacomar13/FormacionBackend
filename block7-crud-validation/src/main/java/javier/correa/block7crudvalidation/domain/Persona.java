@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Size;
+
 import javier.correa.block7crudvalidation.controllers.dto.PersonaInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
 import lombok.Data;

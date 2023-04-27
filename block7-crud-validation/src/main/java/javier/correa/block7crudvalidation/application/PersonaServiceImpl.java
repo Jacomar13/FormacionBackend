@@ -56,8 +56,14 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public Iterable<PersonaOutputDto> getAllPersonas(int pageNumber, int pageSize) {
+    public Iterable<PersonaOutputDto> getAllPersonas(int pageNumber, int pageSize) throws EntityNotFoundException{
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+
+        if (personaRepository.findAll(pageRequest).getContent()
+                .stream()
+                .map(Persona::personaToOutputDto)
+                .toList().isEmpty())
+                    throw new EntityNotFoundException("No hay ninguna persona registrada en la base de datos actualmente",404);
         return personaRepository.findAll(pageRequest).getContent()
                 .stream()
                 .map(Persona::personaToOutputDto)
