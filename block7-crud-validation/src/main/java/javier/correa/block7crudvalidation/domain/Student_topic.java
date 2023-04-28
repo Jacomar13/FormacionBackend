@@ -5,12 +5,12 @@ import lombok.Data;
 
 
 import java.util.Date;
-@Data
+/*@Data
 @Entity
-@Table(name = "estudios")
+@Table(name = "estudios")*/
 
 public class Student_topic {
-    @Id
+   /* @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Integer id_study;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,5 +25,5 @@ public class Student_topic {
     @Column(name = "initial_date")
     Date initial_date;
     @Column(name = "finish_date")
-    Date finish_date;
+    Date finish_date;*/
 }

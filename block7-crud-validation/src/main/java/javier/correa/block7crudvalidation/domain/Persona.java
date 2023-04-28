@@ -1,9 +1,6 @@
 package javier.correa.block7crudvalidation.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import javier.correa.block7crudvalidation.controllers.dto.PersonaInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
@@ -18,6 +15,7 @@ import java.util.Date;
 public class Persona {
     @Id
     @GeneratedValue
+    @OneToOne
     private int id_persona;
 
     @Column(nullable = false, length = 10)

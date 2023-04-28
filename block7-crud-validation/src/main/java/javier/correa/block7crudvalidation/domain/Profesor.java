@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
+/*@Data
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor*/
 public class Profesor {
 
     @Id

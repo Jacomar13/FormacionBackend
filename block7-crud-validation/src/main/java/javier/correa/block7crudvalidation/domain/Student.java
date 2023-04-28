@@ -6,13 +6,13 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Entity
+/*@Entity
 @Data
 @NoArgsConstructor
-@Table(name = "estudiantes")
+@Table(name = "estudiantes")*/
 
 public class Student {
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     String id_student;
     @OneToOne
@@ -28,6 +28,6 @@ public class Student {
     @Column(name = "rama")
     String branch;
     @OneToMany
-    List<Student_topic> estudios;
+    List<Student_topic> estudios;*/
 }
 
