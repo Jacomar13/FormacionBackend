@@ -16,19 +16,7 @@ public class EntityNotFoundException extends RuntimeException{
         customError = new CustomError(httpCode, message);
     }
 
-    public CustomError getCustomError() {
-        return customError;
-    }
 
-    public static class CustomError {
-        private final Date timestamp;
-        private final int httpCode;
-        private final String mensaje;
 
-        public CustomError(int httpCode, String mensaje) {
-            this.timestamp = new Date();
-            this.httpCode = httpCode;
-            this.mensaje = mensaje;
-        }
-    }
+
 }

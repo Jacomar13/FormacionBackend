@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Data
 @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 public class UnprocesableException extends RuntimeException{
-    public UnprocesableException(String mensaje){
+    private final CustomError customError;
+    public UnprocesableException(String mensaje, int httpcode){
         super(mensaje);
+        customError = new CustomError(httpcode, mensaje);
     }
 }
