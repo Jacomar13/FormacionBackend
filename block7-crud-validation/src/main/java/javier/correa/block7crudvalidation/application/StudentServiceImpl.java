@@ -1,4 +1,78 @@
 package javier.correa.block7crudvalidation.application;
 
-public class StudentServiceImpl {
+import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.StudentInputDto;
+import javier.correa.block7crudvalidation.controllers.dto.StudentOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.StudentSimpleOutputDto;
+import javier.correa.block7crudvalidation.domain.Persona;
+import javier.correa.block7crudvalidation.domain.Student;
+import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
+import javier.correa.block7crudvalidation.domain.exception.UnprocesableException;
+import javier.correa.block7crudvalidation.repository.PersonaRepository;
+import javier.correa.block7crudvalidation.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+@Service
+
+public class StudentServiceImpl implements StudentService{
+
+    @Autowired
+    PersonaRepository personaRepository;
+    @Autowired
+    StudentRepository studentRepository;
+    /*Student student1 = studentRepository.findById(studentInputDto.getId_student()).orElseThrow();*/
+    @Override
+    public StudentOutputDto addStudent(StudentInputDto studentInputDto) throws Exception {
+
+        if (studentRepository.existsById(studentInputDto.getId_student())) {
+            throw new UnprocesableException("El estudiante con id: "+ studentInputDto.getId_student() +" existe", 422);
+        }
+
+        Persona persona = personaRepository.findById(studentInputDto.getId_student()).orElseThrow();
+        Student student = new Student(studentInputDto);
+
+        persona.setStudent(student);
+        student.setPersona(persona);
+
+        return studentRepository
+                .save(student)
+                .studentToOutputDto();
+    }
+
+    @Override
+    public Object getStudentByIdAndOutputType(int id, String outputType) {
+
+        if (outputType.equals("full"))
+            return studentRepository.findById(id).orElseThrow(() ->new EntityNotFoundException("No se ha encontrado el estudiante con id " + id, 404)).studentToOutputDto();
+        else if (outputType.equals("simple"))
+            return studentRepository.findById(id).orElseThrow(() ->new EntityNotFoundException("No se ha encontrado el estudiante con id " + id, 404)).studentSimpleToOutputDto();
+        else
+            return null;
+    }
+
+
+
+    @Override
+    public Iterable<StudentSimpleOutputDto> getAllStudents(int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+
+        if (studentRepository.findAll(pageRequest).getContent()
+                .stream()
+                .map(Student::studentSimpleToOutputDto)
+                .toList().isEmpty())
+            throw new EntityNotFoundException("No hay ningun estudiante registrado en la base de datos actualmente",404);
+        return studentRepository.findAll(pageRequest).getContent()
+                .stream()
+                .map(Student::studentSimpleToOutputDto)
+                .toList();
+    }
+
+
 }

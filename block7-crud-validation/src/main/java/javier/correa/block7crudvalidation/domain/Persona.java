@@ -46,6 +46,8 @@ public class Persona {
     private String imagen_url;
 
     private String termination_date;
+    @OneToOne
+    private Student student;
 
     public Persona(PersonaInputDto personaInputDto) {
         this.id_persona = personaInputDto.getId_persona();

@@ -1,10 +1,7 @@
 package javier.correa.block7crudvalidation.domain;
 
 import jakarta.persistence.*;
-import javier.correa.block7crudvalidation.controllers.dto.PersonaInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
-import javier.correa.block7crudvalidation.controllers.dto.StudentInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.StudentOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,17 +15,16 @@ import java.util.List;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    String id_student;
-    @OneToOne
-    @JoinColumn(name = "id_persona")
-    Persona persona;
+    int id_student;
     @Column(name = "horas_por_semana")
     Integer num_hours_week;
     @Column(name = "comentarios")
-    String coments;
-
+    String comments;
     @Column(name = "rama")
     String branch;
+    @OneToOne
+    @JoinColumn(name = "id_persona")
+    private Persona persona;
 
     /*@OneToMany
     List<Student_topic> estudios;
@@ -38,14 +34,16 @@ public class Student {
 
     public Student(StudentInputDto studentInputDto) {
         this.id_student = studentInputDto.getId_student();
-        this.persona = studentInputDto.getPersona();
         this.num_hours_week = studentInputDto.getNum_hours_week();
-        this.coments = studentInputDto.getComents();
+        this.comments = studentInputDto.getComments();
         this.branch = studentInputDto.getBranch();
     }
 
-    public StudentOutputDto studentOutputDto(){
-        return new StudentOutputDto(this.id_student, this.persona, this.num_hours_week, this.coments, this.branch);
+    public StudentOutputDto studentToOutputDto(){
+        return new StudentOutputDto(this.id_student, this.num_hours_week, this.comments, this.branch, this.persona.getId_persona(),this.persona.getUsuario(),this.persona.getName(), this.persona.getSurname(), this.persona.getCompany_email(), this.persona.getPersonal_email(), this.persona.getCity(), this.persona.isActive(), this.persona.getCreated_date(), this.persona.getImagen_url(), this.persona.getTermination_date());
+    }
+    public StudentSimpleOutputDto studentSimpleToOutputDto(){
+        return new StudentSimpleOutputDto(this.id_student, this.persona.getId_persona(), this.num_hours_week, this.comments, this.branch);
     }
 }
 
