@@ -15,7 +15,7 @@ import java.util.Date;
 public class Persona {
     @Id
     @GeneratedValue
-    @OneToOne
+    /*@OneToOne*/
     private int id_persona;
 
     @Column(nullable = false, length = 10)

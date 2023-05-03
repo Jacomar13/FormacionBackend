@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor*/
 public class Profesor {
-
+/*
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String id_profesor;
@@ -21,6 +21,6 @@ public class Profesor {
 
    private String comments;
 
-   private String branch;
+   private String branch;*/
 
 }
