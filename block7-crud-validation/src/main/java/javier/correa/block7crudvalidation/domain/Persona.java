@@ -4,13 +4,15 @@ import jakarta.persistence.*;
 
 import javier.correa.block7crudvalidation.controllers.dto.PersonaInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Persona {
     @Id
@@ -48,6 +50,8 @@ public class Persona {
     private String termination_date;
     @OneToOne
     private Student student;
+    @OneToOne
+    private Profesor profesor;
 
     public Persona(PersonaInputDto personaInputDto) {
         this.id_persona = personaInputDto.getId_persona();

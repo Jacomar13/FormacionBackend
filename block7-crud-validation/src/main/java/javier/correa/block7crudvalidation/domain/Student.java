@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Data
@@ -23,8 +24,12 @@ public class Student {
     @Column(name = "rama")
     String branch;
     @OneToOne
-    @JoinColumn(name = "id_persona")
+    @JoinColumn(name = "id_persona", nullable = false)
     private Persona persona;
+
+    @ManyToOne
+    @JoinColumn(name = "id_profesor")
+    private Profesor profesor;
 
     /*@OneToMany
     List<Student_topic> estudios;

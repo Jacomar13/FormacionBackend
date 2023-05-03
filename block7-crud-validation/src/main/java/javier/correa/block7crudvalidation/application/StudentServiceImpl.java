@@ -27,9 +27,12 @@ public class StudentServiceImpl implements StudentService{
     PersonaRepository personaRepository;
     @Autowired
     StudentRepository studentRepository;
-    /*Student student1 = studentRepository.findById(studentInputDto.getId_student()).orElseThrow();*/
     @Override
     public StudentOutputDto addStudent(StudentInputDto studentInputDto) throws Exception {
+
+        if (studentRepository.existsById(studentInputDto.getId_persona())) {
+            throw new UnprocesableException("El estudiante con id: " + studentInputDto.getId_persona()+", ya existe",422);
+        }
 
         Persona persona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();
         Student student = new Student(studentInputDto);
@@ -69,6 +72,4 @@ public class StudentServiceImpl implements StudentService{
                 .map(Student::studentSimpleToOutputDto)
                 .toList();
     }
-
-
 }

@@ -5,6 +5,7 @@ import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.StudentInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.StudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.StudentSimpleOutputDto;
+import javier.correa.block7crudvalidation.domain.exception.UnprocesableException;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,8 @@ public class StudentController {
     StudentService studentService;
 
     @PostMapping
-    public ResponseEntity<StudentOutputDto> addStudentToPersona(@RequestBody StudentInputDto studentInputDto) throws Exception{
-        return new  ResponseEntity(studentService.addStudent(studentInputDto), HttpStatus.OK);
+    public ResponseEntity<StudentOutputDto> addStudentToPersona(@RequestBody StudentInputDto studentInputDto) throws Exception {
+        return new ResponseEntity(studentService.addStudent(studentInputDto), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
