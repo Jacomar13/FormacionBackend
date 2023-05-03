@@ -31,11 +31,7 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public StudentOutputDto addStudent(StudentInputDto studentInputDto) throws Exception {
 
-        if (studentRepository.existsById(studentInputDto.getId_student())) {
-            throw new UnprocesableException("El estudiante con id: "+ studentInputDto.getId_student() +" existe", 422);
-        }
-
-        Persona persona = personaRepository.findById(studentInputDto.getId_student()).orElseThrow();
+        Persona persona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();
         Student student = new Student(studentInputDto);
 
         persona.setStudent(student);
