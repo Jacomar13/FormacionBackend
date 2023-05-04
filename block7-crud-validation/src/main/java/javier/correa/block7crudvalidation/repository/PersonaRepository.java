@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface PersonaRepository extends JpaRepository<Persona, Integer> {
     List<Persona> findByUsuario(String user);
+
 }

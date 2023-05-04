@@ -19,35 +19,25 @@ public class Persona {
     @GeneratedValue
     /*@OneToOne*/
     private int id_persona;
-
     @Column(nullable = false, length = 10)
     private String usuario;
-
     @Column(nullable = false)
     private String password;
-
     @Column(nullable = false)
     private String name;
-
     private String surname;
-
     @Column(nullable = false)
     private String company_email;
-
     @Column(nullable = false)
     private String personal_email;
     @Column(nullable = false)
     private String city;
-
     @Column(nullable = false)
     private boolean active;
-
     @Column(nullable = false)
     private Date created_date;
-
     private String imagen_url;
-
-    private String termination_date;
+    private Date termination_date;
     @OneToOne
     private Student student;
     @OneToOne

@@ -1,6 +1,5 @@
 package javier.correa.block7crudvalidation.controllers.dto;
 
-import javier.correa.block7crudvalidation.domain.Persona;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,5 +34,5 @@ public class StudentOutputDto {
 
     private String imagen_url;
 
-    private String termination_date;
+    private Date termination_date;
 }

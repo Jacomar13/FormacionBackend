@@ -1,6 +1,5 @@
 package javier.correa.block7crudvalidation.controllers.dto;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.util.Date;
@@ -28,5 +27,5 @@ public class PersonaInputDto {
 
     private String imagen_url;
 
-    private String termination_date;
+    private Date termination_date;
 }

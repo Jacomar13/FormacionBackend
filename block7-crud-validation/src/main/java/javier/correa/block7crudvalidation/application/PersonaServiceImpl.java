@@ -22,14 +22,14 @@ public class PersonaServiceImpl implements PersonaService{
     @Override
     public PersonaOutputDto addPersona(PersonaInputDto persona) throws UnprocesableException {
         if (persona.getUsuario()== null) {throw new UnprocesableException("El usuario no puede estar vacío", 422);}
-        else if (persona.getUsuario().length() < 6 || persona.getUsuario().length() > 10){throw new UnprocesableException("La longitud de usuario no pueder ser inferior a 6 ni superior a 10 caracteres", 422);}
-        else if (Objects.isNull(persona.getPassword()) || persona.getPassword().isBlank()) {throw new UnprocesableException("La contraseña no puede estar vacía", 422);}
-        else if (persona.getName() == null) {throw new UnprocesableException("El nombre no puede estar vacío", 422);}
-        else if (persona.getCompany_email() == null) {throw new UnprocesableException("El correo profesional no puede estar vacío", 422);}
-        else if (persona.getPersonal_email() == null) {throw new UnprocesableException("El correo personal no puede estar vacío", 422);}
-        else if (persona.getCity() == null) {throw new UnprocesableException("La ciudad no puede estar vacía", 422);}
-        else if (persona.isActive() == false) {throw new UnprocesableException("El usuario no puede estar NO ACTIVADO", 422);}
-        else if (persona.getCreated_date() == null) {throw new UnprocesableException("La fecha de creación no puede estar vacía", 422);}
+        if (persona.getUsuario().length() < 6 || persona.getUsuario().length() > 10){throw new UnprocesableException("La longitud de usuario no pueder ser inferior a 6 ni superior a 10 caracteres", 422);}
+        if (Objects.isNull(persona.getPassword()) || persona.getPassword().isBlank()) {throw new UnprocesableException("La contraseña no puede estar vacía", 422);}
+        if (persona.getName() == null) {throw new UnprocesableException("El nombre no puede estar vacío", 422);}
+        if (persona.getCompany_email() == null) {throw new UnprocesableException("El correo profesional no puede estar vacío", 422);}
+        if (persona.getPersonal_email() == null) {throw new UnprocesableException("El correo personal no puede estar vacío", 422);}
+        if (persona.getCity() == null) {throw new UnprocesableException("La ciudad no puede estar vacía", 422);}
+        if (persona.isActive() == false) {throw new UnprocesableException("El usuario no puede estar NO ACTIVADO", 422);}
+        if (persona.getCreated_date() == null) {throw new UnprocesableException("La fecha de creación no puede estar vacía", 422);}
         return personaRepository.save(new Persona(persona)).personaToOutputDto();
     }
 

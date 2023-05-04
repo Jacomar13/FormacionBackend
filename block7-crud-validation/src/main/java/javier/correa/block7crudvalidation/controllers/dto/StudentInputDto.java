@@ -1,6 +1,5 @@
 package javier.correa.block7crudvalidation.controllers.dto;
 
-import javier.correa.block7crudvalidation.domain.Persona;
 import lombok.Getter;
 import lombok.Setter;
 

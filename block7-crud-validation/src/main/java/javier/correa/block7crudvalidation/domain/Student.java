@@ -5,9 +5,6 @@ import javier.correa.block7crudvalidation.controllers.dto.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.Map;
-
 @Entity
 @Data
 @NoArgsConstructor

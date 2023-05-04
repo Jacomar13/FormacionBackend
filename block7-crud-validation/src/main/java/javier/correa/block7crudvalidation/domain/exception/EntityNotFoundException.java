@@ -11,9 +11,9 @@ import java.util.Date;
 public class EntityNotFoundException extends RuntimeException{
     private final CustomError customError;
 
-    public EntityNotFoundException(String message, int httpCode) {
-        super(message);
-        customError = new CustomError(httpCode, message);
+    public EntityNotFoundException(String mensaje, int httpCode) {
+        super(mensaje);
+        customError = new CustomError(httpCode, mensaje);
     }
 
 
