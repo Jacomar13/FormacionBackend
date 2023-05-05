@@ -9,10 +9,12 @@ public interface PersonaService {
 
     PersonaOutputDto addPersona(PersonaInputDto persona) throws Exception;
 
-    PersonaOutputDto getPersonaById(Integer id);
+    Object getPersonaById(Integer id, String personType);
 
     List<PersonaOutputDto> getPersonabyUsuario(String name);
 
     Iterable<PersonaOutputDto> getAllPersonas(int pageNumber, int pageSize);
 
+
+    void deletePersonaById(int id);
 }

@@ -24,8 +24,8 @@ public class PersonaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity showPersonaById(@PathVariable Integer id) throws EntityNotFoundException {
-        return new ResponseEntity<>(personaService.getPersonaById(id), HttpStatus.OK);
+    public ResponseEntity showPersonaById(@PathVariable Integer id, @RequestParam String personType) throws EntityNotFoundException {
+        return new ResponseEntity<>(personaService.getPersonaById(id, personType), HttpStatus.OK);
     }
 
     @GetMapping("/usuario/{user}")
@@ -40,5 +40,13 @@ public class PersonaController {
             @RequestParam(defaultValue = "25", required = false) int pageSize) {
         return personaService.getAllPersonas(pageNumber, pageSize);
     }
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePersona(@PathVariable int id){
+        try {
+            personaService.deletePersonaById(id);
+            return new ResponseEntity<>("Persona con el id: " + id + " ha sido eliminada", HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>("Persona con el id: " + id + " no ha sido encontrada", HttpStatus.NOT_FOUND);
+        }
+    }
 }

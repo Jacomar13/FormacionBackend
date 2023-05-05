@@ -3,6 +3,8 @@ package javier.correa.block7crudvalidation.domain;
 import jakarta.persistence.*;
 import javier.correa.block7crudvalidation.controllers.dto.ProfesorInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.ProfesorOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.ProfesorSimpleOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.StudentSimpleOutputDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,5 +42,7 @@ public class Profesor {
     public ProfesorOutputDto profesorToOutputDto(){
         return new ProfesorOutputDto(this.idProfesor, this.comments, this.branch, this.persona.getId_persona(),this.persona.getUsuario(),this.persona.getName(), this.persona.getSurname(), this.persona.getCompany_email(), this.persona.getPersonal_email(), this.persona.getCity(), this.persona.isActive(), this.persona.getCreated_date(), this.persona.getImagen_url(), this.persona.getTermination_date());
     }
-
+    public ProfesorSimpleOutputDto profesorToSimpleOutputDto(){
+        return new ProfesorSimpleOutputDto(this.idProfesor, this.persona.getId_persona(), this.comments, this.branch);
+    }
 }

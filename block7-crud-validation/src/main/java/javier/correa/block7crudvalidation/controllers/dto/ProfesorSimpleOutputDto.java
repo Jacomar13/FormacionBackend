@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ProfesorSimpleOutputDto {
-    private String id_profesor;
-    private Persona persona;
+    private int id_profesor;
+    private int id_persona;
     private String comments;
     private String branch;
 }

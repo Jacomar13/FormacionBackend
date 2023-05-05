@@ -2,10 +2,16 @@ package javier.correa.block7crudvalidation.application;
 
 import javier.correa.block7crudvalidation.controllers.dto.PersonaInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.ProfesorOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.StudentOutputDto;
+import javier.correa.block7crudvalidation.domain.Profesor;
+import javier.correa.block7crudvalidation.domain.Student;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
 import javier.correa.block7crudvalidation.domain.Persona;
 import javier.correa.block7crudvalidation.domain.exception.UnprocesableException;
 import javier.correa.block7crudvalidation.repository.PersonaRepository;
+import javier.correa.block7crudvalidation.repository.ProfesorRepository;
+import javier.correa.block7crudvalidation.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -19,6 +25,10 @@ import java.util.Optional;
 public class PersonaServiceImpl implements PersonaService{
     @Autowired
     PersonaRepository personaRepository;
+    @Autowired
+    StudentRepository studentRepository;
+    @Autowired
+    ProfesorRepository profesorRepository;
     @Override
     public PersonaOutputDto addPersona(PersonaInputDto persona) throws UnprocesableException {
         if (persona.getUsuario()== null) {throw new UnprocesableException("El usuario no puede estar vacío", 422);}
@@ -34,11 +44,31 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public PersonaOutputDto getPersonaById(Integer id) throws EntityNotFoundException {
+    public Object getPersonaById(Integer id, String personType) throws EntityNotFoundException {
         Optional<Persona> personaOptional = personaRepository.findById(id);
         Persona persona = personaOptional.orElseThrow(() -> new EntityNotFoundException("No se ha encontrado la persona con id " + id, 404));
-        PersonaOutputDto personaOutputDto = persona.personaToOutputDto();
-        return personaOutputDto;
+
+        Student studentExist= studentRepository.findByIdPersona(id);
+        Profesor profesorExists = profesorRepository.findByIdPersona(id);
+
+        if (studentExist != null && personType.equals("student")) {
+            StudentOutputDto studentOutputDto = studentExist.studentToOutputDto();
+            return studentOutputDto;
+        }
+        else if (studentExist == null && personType.equals("student")){
+            throw new EntityNotFoundException("El estudiante con id: " + id +" que estás buscando, es un profesor",404);
+        }
+        else if (profesorExists != null && personType.equals("profesor")) {
+            ProfesorOutputDto profesorOutputDto = profesorExists.profesorToOutputDto();
+            return profesorOutputDto;
+        }
+        else if (profesorExists == null && personType.equals("profesor")) {
+            throw new EntityNotFoundException("El profesor con id: " + id +" que estás buscando, es un estudiante",404);
+        }
+        else {
+            PersonaOutputDto personaOutputDto = persona.personaToOutputDto();
+            return personaOutputDto;
+        }
     }
 
 
@@ -68,5 +98,12 @@ public class PersonaServiceImpl implements PersonaService{
                 .stream()
                 .map(Persona::personaToOutputDto)
                 .toList();
+    }
+
+
+    @Override
+    public void deletePersonaById(int id) {
+        personaRepository.findById(id).orElseThrow();
+        personaRepository.deleteById(id);
     }
 }

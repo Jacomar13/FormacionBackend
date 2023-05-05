@@ -5,6 +5,7 @@ import javier.correa.block7crudvalidation.controllers.dto.ProfesorOutputDto;
 import javier.correa.block7crudvalidation.domain.Persona;
 import javier.correa.block7crudvalidation.domain.Profesor;
 import javier.correa.block7crudvalidation.domain.Student;
+import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
 import javier.correa.block7crudvalidation.domain.exception.UnprocesableException;
 import javier.correa.block7crudvalidation.repository.PersonaRepository;
 import javier.correa.block7crudvalidation.repository.ProfesorRepository;
@@ -52,6 +53,11 @@ public class ProfesorServiceImpl implements ProfesorService{
 
     @Override
     public Object getProfesorByIdAndOutputType(int id, String outputType) {
-        return null;
+        if (outputType.equals("full"))
+            return profesorRepository.findById(id).orElseThrow(() ->new EntityNotFoundException("No se ha encontrado el estudiante con id " + id, 404)).profesorToOutputDto();
+        else if (outputType.equals("simple"))
+            return profesorRepository.findById(id).orElseThrow(() ->new EntityNotFoundException("No se ha encontrado el estudiante con id " + id, 404)).profesorToSimpleOutputDto();
+        else
+            return null;
     }
 }
