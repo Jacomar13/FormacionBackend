@@ -9,4 +9,3 @@ public class PersonaInputDto {
     private String edad;
     private  String poblacion;
 }
--
