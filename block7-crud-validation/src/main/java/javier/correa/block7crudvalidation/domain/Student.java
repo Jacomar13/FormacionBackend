@@ -20,12 +20,12 @@ public class Student {
     String comments;
     @Column(name = "rama")
     String branch;
-    @OneToOne
+    @OneToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "id_persona", nullable = false)
     private Persona persona;
 
     @ManyToOne
-    @JoinColumn(name = "id_profesor")
+    @JoinColumn(name = "id_profesor", nullable = true)
     private Profesor profesor;
 
     /*@OneToMany

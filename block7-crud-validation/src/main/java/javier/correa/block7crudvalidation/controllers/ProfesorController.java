@@ -6,10 +6,7 @@ import javier.correa.block7crudvalidation.controllers.dto.ProfesorOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -21,5 +18,16 @@ public class ProfesorController {
     @PostMapping
     public ResponseEntity<ProfesorOutputDto> addStudentToPersona(@RequestBody ProfesorInputDto profesorInputDto) throws Exception {
         return new ResponseEntity(profesorService.addProfesor(profesorInputDto), HttpStatus.OK);
+    }
+
+
+    @PostMapping("/student")
+    public ResponseEntity<String> addStudentToProfesor(@RequestParam int id_profesor, @RequestParam int id_student){
+        try {
+            profesorService.addStudentToProfesor(id_profesor, id_student);
+            return ResponseEntity.ok().body("Al estudiante con id: " + id_student + ", se le ha asignado correctamente el profesor con id: " + id_profesor);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("No se ha podido asignar el estudiante correctamente");
+        }
     }
 }

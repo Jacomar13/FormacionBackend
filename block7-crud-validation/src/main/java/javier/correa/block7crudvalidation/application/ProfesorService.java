@@ -8,4 +8,6 @@ public interface ProfesorService {
     Iterable<ProfesorOutputDto> getAllProfesors(int pageNumber, int pageSize);
 
     Object getProfesorByIdAndOutputType(int id, String outputType);
+
+    void addStudentToProfesor(int id_profesor, int id_student);
 }

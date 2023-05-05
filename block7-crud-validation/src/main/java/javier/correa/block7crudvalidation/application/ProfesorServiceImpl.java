@@ -46,6 +46,8 @@ public class ProfesorServiceImpl implements ProfesorService{
                 .profesorToOutputDto();
     }
 
+
+
     @Override
     public Iterable<ProfesorOutputDto> getAllProfesors(int pageNumber, int pageSize) {
         return null;
@@ -59,5 +61,20 @@ public class ProfesorServiceImpl implements ProfesorService{
             return profesorRepository.findById(id).orElseThrow(() ->new EntityNotFoundException("No se ha encontrado el estudiante con id " + id, 404)).profesorToSimpleOutputDto();
         else
             return null;
+    }
+
+    @Override
+    public void addStudentToProfesor(int id_profesor, int id_student) {
+        Student student = studentRepository.findById(id_student).orElseThrow();
+        Profesor profesor = profesorRepository.findById(id_profesor).orElseThrow();
+
+        student.setProfesor(profesor);
+        profesor.getStudents().add(student);
+
+        studentRepository.save(student);
+        profesorRepository.save(profesor);
+
+
+
     }
 }

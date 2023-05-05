@@ -46,7 +46,7 @@ public class PersonaController {
             personaService.deletePersonaById(id);
             return new ResponseEntity<>("Persona con el id: " + id + " ha sido eliminada", HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<>("Persona con el id: " + id + " no ha sido encontrada", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Persona con el id: " + id + " no se ha podido eliminar", HttpStatus.NOT_FOUND);
         }
     }
 }

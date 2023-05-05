@@ -22,7 +22,7 @@ public class Profesor {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idProfesor;
 
-    @OneToOne
+    @OneToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "id_persona")
     private Persona persona;
     @Column(name = "comentarios")
