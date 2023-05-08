@@ -1,11 +1,12 @@
 package javier.correa.block7crudvalidation.domain;
 
 import jakarta.persistence.*;
-import javier.correa.block7crudvalidation.controllers.dto.*;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity

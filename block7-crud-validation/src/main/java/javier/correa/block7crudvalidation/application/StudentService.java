@@ -1,9 +1,8 @@
 package javier.correa.block7crudvalidation.application;
 
-import javier.correa.block7crudvalidation.controllers.dto.*;
-import org.springframework.http.ResponseEntity;
-
-import java.util.List;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 
 public interface StudentService {
     StudentOutputDto addStudent(StudentInputDto persona) throws Exception;

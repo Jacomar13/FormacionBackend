@@ -1,8 +1,8 @@
 package javier.correa.block7crudvalidation.controllers;
 
 import javier.correa.block7crudvalidation.application.PersonaService;
-import javier.correa.block7crudvalidation.controllers.dto.PersonaInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaInputDto;
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

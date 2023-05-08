@@ -2,9 +2,9 @@ package javier.correa.block7crudvalidation.domain;
 
 import jakarta.persistence.*;
 
-import javier.correa.block7crudvalidation.controllers.dto.PersonaInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
-import javier.correa.block7crudvalidation.controllers.dto.PersonaProfesorWithStudentsOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaInputDto;
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaProfesorWithStudentsOutputDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,9 +1,9 @@
 package javier.correa.block7crudvalidation.controllers;
 
 import javier.correa.block7crudvalidation.application.StudentService;
-import javier.correa.block7crudvalidation.controllers.dto.StudentInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.StudentOutputDto;
-import javier.correa.block7crudvalidation.controllers.dto.StudentSimpleOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

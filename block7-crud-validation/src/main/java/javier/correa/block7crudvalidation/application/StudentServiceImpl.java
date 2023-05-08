@@ -1,8 +1,8 @@
 package javier.correa.block7crudvalidation.application;
 
-import javier.correa.block7crudvalidation.controllers.dto.StudentInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.StudentOutputDto;
-import javier.correa.block7crudvalidation.controllers.dto.StudentSimpleOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 import javier.correa.block7crudvalidation.domain.Persona;
 import javier.correa.block7crudvalidation.domain.Profesor;
 import javier.correa.block7crudvalidation.domain.Student;

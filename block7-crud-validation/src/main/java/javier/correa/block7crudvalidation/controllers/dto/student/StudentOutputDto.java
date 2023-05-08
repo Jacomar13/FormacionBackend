@@ -1,13 +1,19 @@
-package javier.correa.block7crudvalidation.controllers.dto;
+package javier.correa.block7crudvalidation.controllers.dto.student;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
-public class PersonaOutputDto {
+public class StudentOutputDto {
+    private int id_student;
+    private Integer num_hours_week;
+    private String comments;
+    private String branch;
     private int id_persona;
 
     private String usuario;

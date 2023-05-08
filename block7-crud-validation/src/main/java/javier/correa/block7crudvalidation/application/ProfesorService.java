@@ -1,6 +1,8 @@
 package javier.correa.block7crudvalidation.application;
 
-import javier.correa.block7crudvalidation.controllers.dto.*;
+import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorInputDto;
+import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorWithStudentOutputDto;
 
 public interface ProfesorService {
     ProfesorOutputDto addProfesor(ProfesorInputDto profesorInputDto) throws Exception;

@@ -1,15 +1,17 @@
 package javier.correa.block7crudvalidation.domain;
 
 import jakarta.persistence.*;
-import javier.correa.block7crudvalidation.controllers.dto.*;
+import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorInputDto;
+import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorSimpleOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorWithStudentOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 

@@ -1,7 +1,7 @@
 package javier.correa.block7crudvalidation.application;
 
-import javier.correa.block7crudvalidation.controllers.dto.PersonaInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaInputDto;
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
 
 import java.util.List;
 

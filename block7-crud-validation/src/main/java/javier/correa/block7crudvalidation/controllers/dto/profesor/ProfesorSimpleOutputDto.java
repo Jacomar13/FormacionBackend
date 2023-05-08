@@ -1,4 +1,4 @@
-package javier.correa.block7crudvalidation.controllers.dto;
+package javier.correa.block7crudvalidation.controllers.dto.profesor;
 
 import javier.correa.block7crudvalidation.domain.Persona;
 import lombok.AllArgsConstructor;

@@ -1,19 +1,13 @@
-package javier.correa.block7crudvalidation.controllers.dto;
+package javier.correa.block7crudvalidation.controllers.dto.persona;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javier.correa.block7crudvalidation.domain.Persona;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
-public class PersonaProfesorWithStudentsOutputDto {
-
+public class PersonaOutputDto {
     private int id_persona;
 
     private String usuario;
@@ -35,6 +29,4 @@ public class PersonaProfesorWithStudentsOutputDto {
     private String imagen_url;
 
     private Date termination_date;
-    @JsonProperty(value = "ValoresDeProfesor")
-    private ProfesorWithStudentOutputDto profesorWithStudentOutputDto;
 }
