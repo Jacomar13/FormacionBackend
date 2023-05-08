@@ -31,8 +31,8 @@ public class Student {
     @JoinColumn(name = "id_profesor", nullable = true)
     private Profesor profesor;
 
-    /*@OneToMany(mappedBy = "student")
-    Set<Student_topic> estudios;*/
+    @OneToMany(mappedBy = "student")
+    Set<Student_topic> estudios;
 
 
     public Student(StudentInputDto studentInputDto) {

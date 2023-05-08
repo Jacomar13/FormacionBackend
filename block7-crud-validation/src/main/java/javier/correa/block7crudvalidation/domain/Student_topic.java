@@ -7,17 +7,18 @@ import lombok.Setter;
 
 
 import java.util.Date;
-/*@Getter
+@Getter
 @Setter
 @Entity
 @Table(name = "estudios")
-@NoArgsConstructor*/
+@NoArgsConstructor
 
 public class Student_topic {
-    /*@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Integer id_study;
-    @ManyToMany(cascade = CascadeType.ALL)
+    int id_study;
+    @ManyToOne
+    @JoinColumn(name = "id_student", nullable = true)
     Student student;
     @Column(name = "asignatura")
     String asignatura;
@@ -26,5 +27,5 @@ public class Student_topic {
     @Column(name = "initial_date")
     Date initial_date;
     @Column(name = "finish_date")
-    Date finish_date;*/
+    Date finish_date;
 }
