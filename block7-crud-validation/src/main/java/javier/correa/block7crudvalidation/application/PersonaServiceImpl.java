@@ -58,8 +58,11 @@ public class PersonaServiceImpl implements PersonaService{
             List<StudentSimpleOutputDto> estudiantes = studentRepository.findByIdProfesor(id_profesor).stream().map(Student::studentSimpleToOutputDto).toList();
             Set<StudentSimpleOutputDto> estud = new HashSet<>(estudiantes);
 
-            return new ProfesorWithStudentOutputDto(profesorExists.getIdProfesor(), profesorExists.getPersona().getId_persona(),
+             ProfesorWithStudentOutputDto profesor =new ProfesorWithStudentOutputDto(profesorExists.getIdProfesor(), profesorExists.getPersona().getId_persona(),
                     profesorExists.getComments(), profesorExists.getBranch(), estud);
+            return new PersonaProfesorWithStudentsOutputDto(persona.getId_persona(), persona.getUsuario(), persona.getName(), persona.getSurname(),
+                    persona.getCompany_email(), persona.getPersonal_email(), persona.getCity(), persona.isActive(), persona.getCreated_date(),
+                    persona.getImagen_url(), persona.getTermination_date(), profesor);
         }
         else if (profesorExists == null && personType.equals("profesor")) {
             throw new EntityNotFoundException("El profesor con id: " + id +" que estás buscando, es un estudiante",404);

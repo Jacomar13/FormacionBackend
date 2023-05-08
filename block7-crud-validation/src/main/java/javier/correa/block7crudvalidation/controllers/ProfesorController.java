@@ -22,7 +22,7 @@ public class ProfesorController {
     }
 
 
-    @PostMapping("/student")
+    @PutMapping("/student")
     public ResponseEntity<String> addStudentToProfesor(@RequestParam int id_profesor, @RequestParam int id_student){
         try {
             profesorService.addStudentToProfesor(id_profesor, id_student);
