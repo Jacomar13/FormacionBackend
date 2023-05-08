@@ -1,7 +1,6 @@
 package javier.correa.block7crudvalidation.application;
 
-import javier.correa.block7crudvalidation.controllers.dto.ProfesorInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.ProfesorOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.*;
 import javier.correa.block7crudvalidation.domain.Persona;
 import javier.correa.block7crudvalidation.domain.Profesor;
 import javier.correa.block7crudvalidation.domain.Student;
@@ -12,6 +11,10 @@ import javier.correa.block7crudvalidation.repository.ProfesorRepository;
 import javier.correa.block7crudvalidation.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProfesorServiceImpl implements ProfesorService{
@@ -32,7 +35,7 @@ public class ProfesorServiceImpl implements ProfesorService{
 
         Profesor profesorExists = profesorRepository.findByIdPersona(profesorInputDto.getId_persona());
         if (profesorExists != null) {
-            throw new UnprocesableException("El profesor con id: " + profesorInputDto.getId_persona()+", ya existe",422);
+            throw new UnprocesableException("El profesor con id: " + profesorInputDto.getId_persona() +", ya existe",422);
         }
 
         Persona persona = personaRepository.findById(profesorInputDto.getId_persona()).orElseThrow();
@@ -56,9 +59,9 @@ public class ProfesorServiceImpl implements ProfesorService{
     @Override
     public Object getProfesorByIdAndOutputType(int id, String outputType) {
         if (outputType.equals("full"))
-            return profesorRepository.findById(id).orElseThrow(() ->new EntityNotFoundException("No se ha encontrado el estudiante con id " + id, 404)).profesorToOutputDto();
+            return profesorRepository.findById(id).orElseThrow(() ->new EntityNotFoundException("No se ha encontrado el profesor con id " + id, 404)).profesorToOutputDto();
         else if (outputType.equals("simple"))
-            return profesorRepository.findById(id).orElseThrow(() ->new EntityNotFoundException("No se ha encontrado el estudiante con id " + id, 404)).profesorToSimpleOutputDto();
+            return profesorRepository.findById(id).orElseThrow(() ->new EntityNotFoundException("No se ha encontrado el profesor con id " + id, 404)).profesorToSimpleOutputDto();
         else
             return null;
     }
@@ -74,7 +77,19 @@ public class ProfesorServiceImpl implements ProfesorService{
         studentRepository.save(student);
         profesorRepository.save(profesor);
 
+    }
 
+    @Override
+    public ProfesorWithStudentOutputDto getProfesorWithStudents(int id_profesor) {
+        Profesor profesor = profesorRepository.findById(id_profesor)
+                .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el estudiante con id " + id_profesor, 404));
+        List<StudentSimpleOutputDto> estudiantes = studentRepository.findByIdProfesor(id_profesor).stream().map(Student::studentSimpleToOutputDto).toList();
+        Set<StudentSimpleOutputDto> estud = new HashSet<>(estudiantes);
+
+
+
+        return new ProfesorWithStudentOutputDto(profesor.getIdProfesor(), profesor.getPersona().getId_persona(),
+                profesor.getComments(), profesor.getBranch(), estud);
 
     }
 }

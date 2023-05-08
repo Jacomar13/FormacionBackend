@@ -1,14 +1,15 @@
 package javier.correa.block7crudvalidation.domain;
 
 import jakarta.persistence.*;
-import javier.correa.block7crudvalidation.controllers.dto.ProfesorInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.ProfesorOutputDto;
-import javier.correa.block7crudvalidation.controllers.dto.ProfesorSimpleOutputDto;
-import javier.correa.block7crudvalidation.controllers.dto.StudentSimpleOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -44,5 +45,15 @@ public class Profesor {
     }
     public ProfesorSimpleOutputDto profesorToSimpleOutputDto(){
         return new ProfesorSimpleOutputDto(this.idProfesor, this.persona.getId_persona(), this.comments, this.branch);
+    }
+    public ProfesorWithStudentOutputDto profesorWithStudentToOutputDto(){
+
+        ArrayList<StudentSimpleOutputDto> st = new ArrayList<StudentSimpleOutputDto>();
+        for (Student student: this.students) {
+            st.add(student.studentSimpleToOutputDto());
+        }
+        Set<StudentSimpleOutputDto> estudiantesSet = new HashSet<>(st);
+
+        return new ProfesorWithStudentOutputDto(this.idProfesor, this.persona.getId_persona(), this.comments, this.branch, estudiantesSet);
     }
 }

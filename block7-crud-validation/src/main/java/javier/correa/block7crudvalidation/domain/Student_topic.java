@@ -1,21 +1,22 @@
 package javier.correa.block7crudvalidation.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 import java.util.Date;
-/*@Data
+/*@Getter
+@Setter
 @Entity
-@Table(name = "estudios")*/
+@Table(name = "estudios")
+@NoArgsConstructor*/
 
 public class Student_topic {
-   /* @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Integer id_study;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "profesor_id")
-    Profesor profesor;
     @ManyToMany(cascade = CascadeType.ALL)
     Student student;
     @Column(name = "asignatura")

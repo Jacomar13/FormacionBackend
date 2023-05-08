@@ -3,6 +3,7 @@ package javier.correa.block7crudvalidation.controllers;
 import javier.correa.block7crudvalidation.application.ProfesorService;
 import javier.correa.block7crudvalidation.controllers.dto.ProfesorInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.ProfesorOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.ProfesorWithStudentOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,4 +31,10 @@ public class ProfesorController {
             return ResponseEntity.badRequest().body("No se ha podido asignar el estudiante correctamente");
         }
     }
+
+    @GetMapping("/{id_profesor}")
+    public ResponseEntity<ProfesorWithStudentOutputDto> getProfesorWithStudent(@PathVariable int id_profesor) {
+        return new ResponseEntity<>(profesorService.getProfesorWithStudents(id_profesor), HttpStatus.OK);
+    }
+
 }

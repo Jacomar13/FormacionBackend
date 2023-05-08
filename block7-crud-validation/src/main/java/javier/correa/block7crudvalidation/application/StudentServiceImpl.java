@@ -37,7 +37,7 @@ public class StudentServiceImpl implements StudentService{
 
         Profesor profesorExists = profesorRepository.findByIdPersona(studentInputDto.getId_persona());
         if (profesorExists != null) {
-            throw new UnprocesableException("La persona con id: " + studentInputDto.getId_persona()+", ya está asignada como un estudiante",422);
+            throw new UnprocesableException("La persona con id: " + studentInputDto.getId_persona()+", ya está asignada como un profesor",422);
         }
 
         Persona persona = personaRepository.findById(studentInputDto.getId_persona()).orElseThrow();

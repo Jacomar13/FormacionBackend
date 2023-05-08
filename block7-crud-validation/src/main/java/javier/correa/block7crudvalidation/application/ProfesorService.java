@@ -10,4 +10,6 @@ public interface ProfesorService {
     Object getProfesorByIdAndOutputType(int id, String outputType);
 
     void addStudentToProfesor(int id_profesor, int id_student);
+
+    ProfesorWithStudentOutputDto getProfesorWithStudents(int id_profesor);
 }

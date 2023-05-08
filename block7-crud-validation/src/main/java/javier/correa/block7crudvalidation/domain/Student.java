@@ -5,6 +5,8 @@ import javier.correa.block7crudvalidation.controllers.dto.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -29,10 +31,8 @@ public class Student {
     private Profesor profesor;
 
     /*@OneToMany
-    List<Student_topic> estudios;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_profesor")
-    Profesor profesor;*/
+    List<Student_topic> estudios;*/
+
 
     public Student(StudentInputDto studentInputDto) {
         this.id_student = studentInputDto.getId_student();
