@@ -83,10 +83,9 @@ public class ProfesorServiceImpl implements ProfesorService{
     public ProfesorWithStudentOutputDto getProfesorWithStudents(int id_profesor) {
         Profesor profesor = profesorRepository.findById(id_profesor)
                 .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el estudiante con id " + id_profesor, 404));
+
         List<StudentSimpleOutputDto> estudiantes = studentRepository.findByIdProfesor(id_profesor).stream().map(Student::studentSimpleToOutputDto).toList();
         Set<StudentSimpleOutputDto> estud = new HashSet<>(estudiantes);
-
-
 
         return new ProfesorWithStudentOutputDto(profesor.getIdProfesor(), profesor.getPersona().getId_persona(),
                 profesor.getComments(), profesor.getBranch(), estud);

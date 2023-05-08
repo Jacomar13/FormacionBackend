@@ -1,9 +1,6 @@
 package javier.correa.block7crudvalidation.application;
 
-import javier.correa.block7crudvalidation.controllers.dto.PersonaInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.PersonaOutputDto;
-import javier.correa.block7crudvalidation.controllers.dto.ProfesorOutputDto;
-import javier.correa.block7crudvalidation.controllers.dto.StudentOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.*;
 import javier.correa.block7crudvalidation.domain.Profesor;
 import javier.correa.block7crudvalidation.domain.Student;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
@@ -17,9 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PersonaServiceImpl implements PersonaService{
@@ -59,8 +54,12 @@ public class PersonaServiceImpl implements PersonaService{
             throw new EntityNotFoundException("El estudiante con id: " + id +" que estás buscando, es un profesor",404);
         }
         else if (profesorExists != null && personType.equals("profesor")) {
-            ProfesorOutputDto profesorOutputDto = profesorExists.profesorToOutputDto();
-            return profesorOutputDto;
+            int id_profesor = profesorExists.getIdProfesor();
+            List<StudentSimpleOutputDto> estudiantes = studentRepository.findByIdProfesor(id_profesor).stream().map(Student::studentSimpleToOutputDto).toList();
+            Set<StudentSimpleOutputDto> estud = new HashSet<>(estudiantes);
+
+            return new ProfesorWithStudentOutputDto(profesorExists.getIdProfesor(), profesorExists.getPersona().getId_persona(),
+                    profesorExists.getComments(), profesorExists.getBranch(), estud);
         }
         else if (profesorExists == null && personType.equals("profesor")) {
             throw new EntityNotFoundException("El profesor con id: " + id +" que estás buscando, es un estudiante",404);

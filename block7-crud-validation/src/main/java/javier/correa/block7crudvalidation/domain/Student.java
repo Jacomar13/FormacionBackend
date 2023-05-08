@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -30,8 +31,8 @@ public class Student {
     @JoinColumn(name = "id_profesor", nullable = true)
     private Profesor profesor;
 
-    /*@OneToMany
-    List<Student_topic> estudios;*/
+    /*@OneToMany(mappedBy = "student")
+    Set<Student_topic> estudios;*/
 
 
     public Student(StudentInputDto studentInputDto) {
