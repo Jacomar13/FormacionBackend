@@ -54,6 +54,6 @@ public class Profesor {
         }
         Set<StudentSimpleOutputDto> estudiantesSet = new HashSet<>(st);
 
-        return new ProfesorWithStudentOutputDto(this.idProfesor, this.persona.getId_persona(), this.comments, this.branch, estudiantesSet);
+        return new ProfesorWithStudentOutputDto(this.idProfesor, this.comments, this.branch, estudiantesSet);
     }
 }

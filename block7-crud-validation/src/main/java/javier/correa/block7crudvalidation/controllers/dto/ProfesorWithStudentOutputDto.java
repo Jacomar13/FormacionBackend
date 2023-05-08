@@ -12,7 +12,6 @@ import java.util.Set;
 @AllArgsConstructor
 public class ProfesorWithStudentOutputDto {
     private int id_profesor;
-    private int id_persona;
     private String comments;
     private String branch;
     private Set<StudentSimpleOutputDto> estudiantes;

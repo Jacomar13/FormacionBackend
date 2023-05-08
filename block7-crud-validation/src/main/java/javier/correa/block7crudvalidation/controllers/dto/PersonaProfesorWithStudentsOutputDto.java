@@ -1,5 +1,6 @@
 package javier.correa.block7crudvalidation.controllers.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javier.correa.block7crudvalidation.domain.Persona;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,5 +35,6 @@ public class PersonaProfesorWithStudentsOutputDto {
     private String imagen_url;
 
     private Date termination_date;
+    @JsonProperty(value = "ValoresDeProfesor")
     private ProfesorWithStudentOutputDto profesorWithStudentOutputDto;
 }

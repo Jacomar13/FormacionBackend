@@ -87,7 +87,7 @@ public class ProfesorServiceImpl implements ProfesorService{
         List<StudentSimpleOutputDto> estudiantes = studentRepository.findByIdProfesor(id_profesor).stream().map(Student::studentSimpleToOutputDto).toList();
         Set<StudentSimpleOutputDto> estud = new HashSet<>(estudiantes);
 
-        return new ProfesorWithStudentOutputDto(profesor.getIdProfesor(), profesor.getPersona().getId_persona(),
+        return new ProfesorWithStudentOutputDto(profesor.getIdProfesor(),
                 profesor.getComments(), profesor.getBranch(), estud);
 
     }
