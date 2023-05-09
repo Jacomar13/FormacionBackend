@@ -10,4 +10,9 @@ public interface StudentService {
     Iterable<StudentSimpleOutputDto> getAllStudents(int pageNumber, int pageSize);
 
     Object getStudentByIdAndOutputType(int id, String outputType);
+
+    void addTopicToStudent(int id_student, int id_study);
+
+    void removeTopicToStudent(int id_student, int id_study);
+
 }

@@ -31,4 +31,16 @@ public class StudentController {
                                                              @RequestParam(defaultValue = "25", required = false) int pageSize) {
         return studentService.getAllStudents(pageNumber, pageSize);
     }
+
+
+
+    @PutMapping("/topic")
+    public ResponseEntity<String> addTopicToStudent(@RequestParam int id_student, @RequestParam int id_study){
+        try {
+            studentService.addTopicToStudent(id_student, id_study);
+            return ResponseEntity.ok().body("A la asignatura con id: " + id_study + ", se le ha asignado correctamente el estudiante con id: " + id_student);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("No se ha podido asignar el estudiante correctamente");
+        }
+    }
 }

@@ -6,11 +6,13 @@ import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleO
 import javier.correa.block7crudvalidation.domain.Persona;
 import javier.correa.block7crudvalidation.domain.Profesor;
 import javier.correa.block7crudvalidation.domain.Student;
+import javier.correa.block7crudvalidation.domain.StudentTopic;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
 import javier.correa.block7crudvalidation.domain.exception.UnprocesableException;
 import javier.correa.block7crudvalidation.repository.PersonaRepository;
 import javier.correa.block7crudvalidation.repository.ProfesorRepository;
 import javier.correa.block7crudvalidation.repository.StudentRepository;
+import javier.correa.block7crudvalidation.repository.StudentTopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,8 @@ public class StudentServiceImpl implements StudentService{
     StudentRepository studentRepository;
     @Autowired
     ProfesorRepository profesorRepository;
+    @Autowired
+    StudentTopicRepository studentTopicRepository;
     @Override
     public StudentOutputDto addStudent(StudentInputDto studentInputDto) throws Exception {
 
@@ -62,6 +66,22 @@ public class StudentServiceImpl implements StudentService{
             return null;
     }
 
+    @Override
+    public void addTopicToStudent(int id_student, int id_study) {
+        Student student = studentRepository.findById(id_student).orElseThrow();
+        StudentTopic topic = studentTopicRepository.findById(id_study).orElseThrow();
+
+        topic.setStudent(student);
+        student.getEstudios().add(topic);
+
+        studentTopicRepository.save(topic);
+        studentRepository.save(student);
+    }
+
+    @Override
+    public void removeTopicToStudent(int id_student, int id_study) {
+
+    }
 
 
     @Override
