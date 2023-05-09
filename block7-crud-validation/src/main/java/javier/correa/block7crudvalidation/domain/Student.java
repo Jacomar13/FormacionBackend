@@ -33,7 +33,7 @@ public class Student {
     private Profesor profesor;
 
     @OneToMany(mappedBy = "student")
-    Set<Student_topic> estudios;
+    Set<StudentTopic> estudios;
 
 
     public Student(StudentInputDto studentInputDto) {
