@@ -1,22 +1,34 @@
 package javier.correa.block7crudvalidation.application;
 
+import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorWithStudentOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentWithTopicsOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicOutputDto;
 import javier.correa.block7crudvalidation.domain.Persona;
+import javier.correa.block7crudvalidation.domain.Profesor;
+import javier.correa.block7crudvalidation.domain.Student;
 import javier.correa.block7crudvalidation.domain.StudentTopic;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
 import javier.correa.block7crudvalidation.domain.exception.UnprocesableException;
+import javier.correa.block7crudvalidation.repository.StudentRepository;
 import javier.correa.block7crudvalidation.repository.StudentTopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Service
 public class StudentTopicServiceImpl implements StudentTopicService{
     @Autowired
     StudentTopicRepository studentTopicRepository;
+
+    @Autowired
+    StudentRepository studentRepository;
 
 
     @Override
@@ -42,12 +54,15 @@ public class StudentTopicServiceImpl implements StudentTopicService{
     }
 
     @Override
-    public Object getListOfTopicByStudent(int id_student) {
-        return null;
+    public StudentWithTopicsOutputDto getListOfTopicByStudent(int id_student) {
+        Student student = studentRepository.findById(id_student)
+                .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el estudiante con id " + id_student, 404));
+
+        List<StudentTopicOutputDto> topics = studentTopicRepository.findByIdStudent(id_student).stream().map(StudentTopic::studentTopicToOutputDto).toList();
+        Set<StudentTopicOutputDto> estud = new HashSet<>(topics);
+
+        return new StudentWithTopicsOutputDto(student.getId_student(), student.getNum_hours_week(),
+                student.getComments(), student.getBranch(), estud);
     }
 
-    @Override
-    public void addTopicToStudent(int id_student, int id_topic) {
-
-    }
 }

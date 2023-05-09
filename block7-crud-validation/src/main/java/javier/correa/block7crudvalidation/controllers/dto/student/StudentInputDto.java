@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StudentInputDto {
-    int id_student;
-    int id_persona;
-    Integer num_hours_week;
-    String comments;
-    String branch;
+    private int id_student;
+    private int id_persona;
+    private Integer num_hours_week;
+    private String comments;
+    private String branch;
 
 }

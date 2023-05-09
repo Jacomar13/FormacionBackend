@@ -3,7 +3,9 @@ package javier.correa.block7crudvalidation.controllers;
 import javier.correa.block7crudvalidation.application.PersonaService;
 import javier.correa.block7crudvalidation.application.StudentService;
 import javier.correa.block7crudvalidation.application.StudentTopicService;
+import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorWithStudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentWithTopicsOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,11 @@ public class StudentTopicController {
     public Iterable<StudentTopicOutputDto>  showAllStudents(@RequestParam(defaultValue = "0", required = false) int pageNumber,
                                                              @RequestParam(defaultValue = "25", required = false) int pageSize) {
         return studentTopicService.getAllTopics(pageNumber, pageSize);
+    }
+
+    @GetMapping("/{id_student}")
+    public ResponseEntity<StudentWithTopicsOutputDto> getStudentWithTopics(@PathVariable int id_student) {
+        return new ResponseEntity<>(studentTopicService.getListOfTopicByStudent(id_student), HttpStatus.OK);
     }
 
 }

@@ -92,6 +92,5 @@ public class ProfesorServiceImpl implements ProfesorService{
 
         return new ProfesorWithStudentOutputDto(profesor.getIdProfesor(),
                 profesor.getComments(), profesor.getBranch(), estud);
-
     }
 }

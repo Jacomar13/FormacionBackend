@@ -1,12 +1,17 @@
 package javier.correa.block7crudvalidation.domain;
 
 import jakarta.persistence.*;
+import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorWithStudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentWithTopicsOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicOutputDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,6 +34,7 @@ public class Student {
     private Persona persona;
 
     @ManyToOne
+
     @JoinColumn(name = "id_profesor", nullable = true)
     private Profesor profesor;
 
@@ -48,6 +54,19 @@ public class Student {
     }
     public StudentSimpleOutputDto studentSimpleToOutputDto(){
         return new StudentSimpleOutputDto(this.id_student, this.persona.getId_persona(), this.num_hours_week, this.comments, this.branch);
+    }
+
+
+
+    public StudentWithTopicsOutputDto studentWithTopicsOutputDto(){
+
+        ArrayList<StudentTopicOutputDto> st = new ArrayList<StudentTopicOutputDto>();
+        for (StudentTopic topic: this.estudios) {
+            st.add(topic.studentTopicToOutputDto());
+        }
+        Set<StudentTopicOutputDto> estudiantesSet = new HashSet<>(st);
+
+        return new StudentWithTopicsOutputDto(this.id_student, this.num_hours_week, this.comments, this.branch, estudiantesSet);
     }
 }
 

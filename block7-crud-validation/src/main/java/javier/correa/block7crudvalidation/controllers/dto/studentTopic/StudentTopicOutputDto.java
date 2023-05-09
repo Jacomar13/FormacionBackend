@@ -10,9 +10,9 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 public class StudentTopicOutputDto {
-    int id_study;
-    String asignatura;
-    String comment;
-    Date initial_date;
-    Date finish_date;
+    private int id_study;
+    private String asignatura;
+    private String comment;
+    private Date initial_date;
+    private Date finish_date;
 }
