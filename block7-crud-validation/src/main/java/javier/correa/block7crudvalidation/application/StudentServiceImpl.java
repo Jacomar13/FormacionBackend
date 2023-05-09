@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 
 @Service
@@ -78,10 +79,7 @@ public class StudentServiceImpl implements StudentService{
         studentRepository.save(student);
     }
 
-    @Override
-    public void removeTopicToStudent(int id_student, int id_study) {
 
-    }
 
 
     @Override
@@ -97,5 +95,19 @@ public class StudentServiceImpl implements StudentService{
                 .stream()
                 .map(Student::studentSimpleToOutputDto)
                 .toList();
+    }
+
+    @Override
+    public void removeTopicOfStudent(int id_student, List<Integer> id_study) {
+        Student student = studentRepository.findById(id_student)
+                .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el estudiante con id " + id_student, 404));
+        for (int i = 0; i <id_study.size(); i++){
+            StudentTopic topic = studentTopicRepository.findById(id_study.get(i))
+                    .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado la asignatura con id " + id_study, 404));
+
+            topic.setStudent(null);
+            studentTopicRepository.save(topic);
+        }
+
     }
 }

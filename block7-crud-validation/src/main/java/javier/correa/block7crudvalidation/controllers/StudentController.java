@@ -5,10 +5,13 @@ import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDt
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 
+import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicUpdateInputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/student")
 @RestController
@@ -41,6 +44,16 @@ public class StudentController {
             return ResponseEntity.ok().body("A la asignatura con id: " + id_study + ", se le ha asignado correctamente el estudiante con id: " + id_student);
         }catch (Exception e){
             return ResponseEntity.badRequest().body("No se ha podido asignar el estudiante correctamente");
+        }
+    }
+
+    @PutMapping("/topic/{id_student}")
+    public ResponseEntity<String> removeTopicOfStudent(@PathVariable int id_student, @RequestBody StudentTopicUpdateInputDto inputDto) {
+        try {
+            studentService.removeTopicOfStudent(id_student, inputDto.getId_study());
+            return ResponseEntity.ok().body("A la asignatura con id: " + null + ", se le ha quitado correctamente el estudiante con id: " + id_student);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("No se ha podido desasignar el estudiante correctamente");
         }
     }
 }
