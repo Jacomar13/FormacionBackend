@@ -1,5 +1,7 @@
 package javier.correa.block7crudvalidation.application;
 
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaInputDto;
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
@@ -16,5 +18,8 @@ public interface StudentService {
     void addTopicToStudent(int id_student, int id_study);
 
     void removeTopicOfStudent(int id_student, List<Integer> id_study);
+    void deleteStudentById(int id);
+
+    StudentSimpleOutputDto updateStudent(int id, StudentInputDto studentInputDto);
 
 }

@@ -1,6 +1,8 @@
 package javier.correa.block7crudvalidation.controllers;
 
 import javier.correa.block7crudvalidation.application.StudentService;
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaInputDto;
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
@@ -39,21 +41,26 @@ public class StudentController {
 
     @PutMapping("/topic")
     public ResponseEntity<String> addTopicToStudent(@RequestParam int id_student, @RequestParam int id_study){
-        try {
-            studentService.addTopicToStudent(id_student, id_study);
-            return ResponseEntity.ok().body("A la asignatura con id: " + id_study + ", se le ha asignado correctamente el estudiante con id: " + id_student);
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("No se ha podido asignar el estudiante correctamente");
-        }
+        studentService.addTopicToStudent(id_student, id_study);
+        return ResponseEntity.ok().body("A la asignatura con id: " + id_study + ", se le ha asignado correctamente el estudiante con id: " + id_student);
+
     }
 
     @PutMapping("/topic/{id_student}")
     public ResponseEntity<String> removeTopicOfStudent(@PathVariable int id_student, @RequestBody StudentTopicUpdateInputDto inputDto) {
-        try {
-            studentService.removeTopicOfStudent(id_student, inputDto.getId_study());
-            return ResponseEntity.ok().body("A la asignatura con id: " + null + ", se le ha quitado correctamente el estudiante con id: " + id_student);
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("No se ha podido desasignar el estudiante correctamente");
-        }
+
+        studentService.removeTopicOfStudent(id_student, inputDto.getId_study());
+        return ResponseEntity.ok().body("A la asignatura con id: " + null + ", se le ha quitado correctamente el estudiante con id: " + id_student);
+
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteStudent(@PathVariable int id){
+        studentService.deleteStudentById(id);
+        return new ResponseEntity<>("Estudiante con el id: " + id + " ha sido eliminado", HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentSimpleOutputDto> updatePersona(@PathVariable int id, @RequestBody StudentInputDto studentInputDto){
+        return new ResponseEntity<>(studentService.updateStudent(id, studentInputDto), HttpStatus.OK);
     }
 }

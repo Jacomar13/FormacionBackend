@@ -29,7 +29,7 @@ public class Student {
     String comments;
     @Column(name = "rama")
     String branch;
-    @OneToOne(cascade =  CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_persona", nullable = false)
     private Persona persona;
 

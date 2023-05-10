@@ -16,7 +16,9 @@ import javier.correa.block7crudvalidation.repository.ProfesorRepository;
 import javier.correa.block7crudvalidation.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.*;
@@ -48,15 +50,21 @@ public class PersonaServiceImpl implements PersonaService{
         Optional<Persona> personaOptional = personaRepository.findById(id);
         Persona persona = personaOptional.orElseThrow(() -> new EntityNotFoundException("No se ha encontrado la persona con id " + id, 404));
 
-        Student studentExist= studentRepository.findByIdPersona(id);
+        Student studentExists= studentRepository.findByIdPersona(id);
         Profesor profesorExists = profesorRepository.findByIdPersona(id);
 
-        if (studentExist != null && personType.equals("student")) {
-            StudentOutputDto studentOutputDto = studentExist.studentToOutputDto();
+        if (studentExists != null && personType.equals("student")) {
+            StudentOutputDto studentOutputDto = studentExists.studentToOutputDto();
             return studentOutputDto;
         }
-        else if (studentExist == null && personType.equals("student")){
+        else if (studentExists == null && profesorExists!= null && personType.equals("student")){
             throw new EntityNotFoundException("El estudiante con id: " + id +" que estás buscando, es un profesor",404);
+        }
+        else if (studentExists == null && profesorExists== null && personType.equals("student")){
+            throw new EntityNotFoundException("El estudiante con id: " + id +" que estás buscando, todavía no está asignado",404);
+        }
+        else if (profesorExists == null && studentExists== null && personType.equals("profesor")){
+            throw new EntityNotFoundException("El profesor con id: " + id +" que estás buscando, todavía no está asignado",404);
         }
         else if (profesorExists != null && personType.equals("profesor")) {
             int id_profesor = profesorExists.getIdProfesor();
@@ -109,8 +117,21 @@ public class PersonaServiceImpl implements PersonaService{
 
 
     @Override
-    public void deletePersonaById(int id) {
-        personaRepository.findById(id).orElseThrow();
+    public void deletePersonaById(int id) throws UnprocesableException {
+        personaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Persona no encontrada", 404));
+        Student studentExist= studentRepository.findByIdPersona(id);
+        if (studentExist != null) {
+            throw new UnprocesableException("Esta persona ya es estudiante, si deseas eliminar esta persona, debes eliminar antes el estudiante", 422);
+        }
         personaRepository.deleteById(id);
+    }
+
+    @Override
+    public PersonaOutputDto updatePersona(int id, PersonaInputDto personaInputDto) {
+        Persona persona = personaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Persona no encontrada", 404));
+        Persona updatedPersona = new Persona(personaInputDto);
+        updatedPersona.setId_persona(id);
+        return personaRepository.save(updatedPersona).personaToOutputDto();
     }
 }

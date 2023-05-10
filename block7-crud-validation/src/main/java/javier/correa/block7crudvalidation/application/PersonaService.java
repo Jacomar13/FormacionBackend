@@ -2,6 +2,8 @@ package javier.correa.block7crudvalidation.application;
 
 import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
+import javier.correa.block7crudvalidation.domain.Persona;
+import javier.correa.block7crudvalidation.domain.exception.UnprocesableException;
 
 import java.util.List;
 
@@ -16,5 +18,8 @@ public interface PersonaService {
     Iterable<PersonaOutputDto> getAllPersonas(int pageNumber, int pageSize);
 
 
-    void deletePersonaById(int id);
+    void deletePersonaById(int id) throws UnprocesableException;
+
+    PersonaOutputDto updatePersona(int id, PersonaInputDto personaInputDto);
+
 }

@@ -42,11 +42,13 @@ public class PersonaController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePersona(@PathVariable int id){
-        try {
-            personaService.deletePersonaById(id);
-            return new ResponseEntity<>("Persona con el id: " + id + " ha sido eliminada", HttpStatus.OK);
-        } catch (Exception e){
-            return new ResponseEntity<>("Persona con el id: " + id + " no se ha podido eliminar", HttpStatus.NOT_FOUND);
-        }
+        personaService.deletePersonaById(id);
+        return new ResponseEntity<>("Persona con el id: " + id + " ha sido eliminada", HttpStatus.OK);
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PersonaOutputDto> updatePersona(@PathVariable int id, @RequestBody PersonaInputDto personaInputDto){
+        return new ResponseEntity<>(personaService.updatePersona(id, personaInputDto), HttpStatus.OK);
     }
 }
