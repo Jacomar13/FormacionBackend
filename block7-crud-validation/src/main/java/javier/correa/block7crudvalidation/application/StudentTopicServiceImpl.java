@@ -1,6 +1,9 @@
 package javier.correa.block7crudvalidation.application;
 
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaProfesorWithStudentsOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorWithStudentOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentWithTopicsOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicInputDto;
@@ -17,10 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class StudentTopicServiceImpl implements StudentTopicService{
@@ -65,5 +65,27 @@ public class StudentTopicServiceImpl implements StudentTopicService{
                 student.getComments(), student.getBranch(), estud);
     }
 
+    @Override
+    public void deleteTopicById(int id) {
+        StudentTopic topic = studentTopicRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado la asignatura con id: " + id, 404));
+        studentTopicRepository.deleteById(id);
+    }
 
+    @Override
+    public StudentTopicOutputDto updateTopic(int id, StudentTopicInputDto studentTopicInputDto) {
+        StudentTopic student = studentTopicRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("La asignatura con id: " + id + ", no se ha encontrado", 404));
+        StudentTopic updatedTopic = new StudentTopic(studentTopicInputDto);
+        return studentTopicRepository.save(updatedTopic).studentTopicToOutputDto();
+    }
+
+    @Override
+    public Object getTopicById(Integer id) {
+        Optional<StudentTopic> topicOpt = studentTopicRepository.findById(id);
+        StudentTopic topic = topicOpt.orElseThrow(() -> new EntityNotFoundException("No se ha encontrado la asignatura con id " + id, 404));
+
+            StudentTopicOutputDto studentTopicOutputDto = topic.studentTopicToOutputDto();
+            return studentTopicOutputDto;
+    }
 }

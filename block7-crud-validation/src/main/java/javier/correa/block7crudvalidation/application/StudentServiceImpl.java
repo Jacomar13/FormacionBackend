@@ -24,6 +24,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @Service
@@ -120,12 +121,17 @@ public class StudentServiceImpl implements StudentService{
 
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el estudiante con id: " + id, 404));
+        Set<StudentTopic> studentTopicsList = studentTopicRepository.findByIdStudent(id);
+        if (!studentTopicsList.isEmpty()){
+            throw new UnprocesableException("No puedes eliminar el estudiante con id: "+ id +" ya que tiene asginaturas",422);
+        }
         Persona persona = student.getPersona();
         persona.setStudent(null);
         personaRepository.save(persona);
         studentRepository.deleteById(id);
-
     }
+
+
 
     @Override
     public StudentSimpleOutputDto updateStudent(int id, StudentInputDto studentInputDto) {

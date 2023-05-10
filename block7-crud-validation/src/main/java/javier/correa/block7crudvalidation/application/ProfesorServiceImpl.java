@@ -130,7 +130,7 @@ public class ProfesorServiceImpl implements ProfesorService{
                 .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el profesor con id: " + id, 404));
         Set<Student> studentList = studentRepository.findByIdProfesor(id);
         if (!studentList.isEmpty()){
-            throw new EntityNotFoundException("No puedes eliminar profesor ya que tiene estudiantes",422);
+            throw new UnprocesableException("No puedes eliminar profesor ya que tiene estudiantes",422);
 
         }
         Persona persona = profesor.getPersona();

@@ -4,6 +4,7 @@ import javier.correa.block7crudvalidation.application.PersonaService;
 import javier.correa.block7crudvalidation.application.StudentService;
 import javier.correa.block7crudvalidation.application.StudentTopicService;
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorWithStudentOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentWithTopicsOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicInputDto;
@@ -25,14 +26,29 @@ public class StudentTopicController {
     }
 
     @GetMapping
-    public Iterable<StudentTopicOutputDto>  showAllStudents(@RequestParam(defaultValue = "0", required = false) int pageNumber,
+    public Iterable<StudentTopicOutputDto>  showAllTopics(@RequestParam(defaultValue = "0", required = false) int pageNumber,
                                                              @RequestParam(defaultValue = "25", required = false) int pageSize) {
         return studentTopicService.getAllTopics(pageNumber, pageSize);
     }
 
-    @GetMapping("/{id_student}")
+    @GetMapping("/student/{id_student}")
     public ResponseEntity<StudentWithTopicsOutputDto> getStudentWithTopics(@PathVariable int id_student) {
         return new ResponseEntity<>(studentTopicService.getListOfTopicByStudent(id_student), HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteTopic(@PathVariable int id){
+        studentTopicService.deleteTopicById(id);
+        return new ResponseEntity<>("La asignatura con id: " + id + " ha sido eliminada", HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentTopicOutputDto> updateStudentTopic(@PathVariable int id, @RequestBody StudentTopicInputDto studentTopicInputDto){
+        return new ResponseEntity<>(studentTopicService.updateTopic(id, studentTopicInputDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity showStudentByIdAndOutputType(@PathVariable int id) throws Exception{
+        return  ResponseEntity.status(HttpStatus.OK).body(studentTopicService.getTopicById(id));
     }
 
 }
