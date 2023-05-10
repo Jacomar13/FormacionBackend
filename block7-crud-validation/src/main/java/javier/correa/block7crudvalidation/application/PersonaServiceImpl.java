@@ -119,9 +119,13 @@ public class PersonaServiceImpl implements PersonaService{
     @Override
     public void deletePersonaById(int id) throws UnprocesableException {
         personaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Persona no encontrada", 404));
-        Student studentExist= studentRepository.findByIdPersona(id);
-        if (studentExist != null) {
+        Student studentExists= studentRepository.findByIdPersona(id);
+        Profesor profesorExists = profesorRepository.findByIdPersona(id);
+        if (studentExists != null) {
             throw new UnprocesableException("Esta persona ya es estudiante, si deseas eliminar esta persona, debes eliminar antes el estudiante", 422);
+        }
+        if (profesorExists != null) {
+            throw new UnprocesableException("Esta persona ya es profesor, si deseas eliminar esta persona, debes eliminar antes el profesor", 422);
         }
         personaRepository.deleteById(id);
     }

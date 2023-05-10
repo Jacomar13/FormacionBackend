@@ -2,6 +2,7 @@ package javier.correa.block7crudvalidation.application;
 
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorOutputDto;
+import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorSimpleOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorWithStudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 import javier.correa.block7crudvalidation.domain.Persona;
@@ -13,10 +14,12 @@ import javier.correa.block7crudvalidation.repository.PersonaRepository;
 import javier.correa.block7crudvalidation.repository.ProfesorRepository;
 import javier.correa.block7crudvalidation.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -41,7 +44,8 @@ public class ProfesorServiceImpl implements ProfesorService{
             throw new UnprocesableException("El profesor con id: " + profesorInputDto.getId_persona() +", ya existe",422);
         }
 
-        Persona persona = personaRepository.findById(profesorInputDto.getId_persona()).orElseThrow();
+        Persona persona = personaRepository.findById(profesorInputDto.getId_persona())
+                .orElseThrow(() -> new EntityNotFoundException("Antes de crear el profesor, asegurate de haber elegido una persona existente", 404));
         Profesor profesor = new Profesor(profesorInputDto);
 
         persona.setProfesor(profesor);
@@ -55,8 +59,18 @@ public class ProfesorServiceImpl implements ProfesorService{
 
 
     @Override
-    public Iterable<ProfesorOutputDto> getAllProfesors(int pageNumber, int pageSize) {
-        return null;
+    public Iterable<ProfesorSimpleOutputDto> getAllProfesors(int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+
+        if (profesorRepository.findAll(pageRequest).getContent()
+                .stream()
+                .map(Profesor::profesorToSimpleOutputDto)
+                .toList().isEmpty())
+            throw new EntityNotFoundException("No hay ningun estudiante registrado en la base de datos actualmente",404);
+        return profesorRepository.findAll(pageRequest).getContent()
+                .stream()
+                .map(Profesor::profesorToSimpleOutputDto)
+                .toList();
     }
 
     @Override
@@ -66,13 +80,15 @@ public class ProfesorServiceImpl implements ProfesorService{
         else if (outputType.equals("simple"))
             return profesorRepository.findById(id).orElseThrow(() ->new EntityNotFoundException("No se ha encontrado el profesor con id " + id, 404)).profesorToSimpleOutputDto();
         else
-            return null;
+            return new EntityNotFoundException("Los dos tipos de salida son 'full' y 'simple', no se permite nulo ni otra palabra", 404);
     }
 
     @Override
     public void addStudentToProfesor(int id_profesor, int id_student) {
-        Student student = studentRepository.findById(id_student).orElseThrow();
-        Profesor profesor = profesorRepository.findById(id_profesor).orElseThrow();
+        Student student = studentRepository.findById(id_student)
+                .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el estudiante con id: " + id_student, 404));
+        Profesor profesor = profesorRepository.findById(id_profesor)
+                .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el estudiante con id: " + id_profesor, 404));
 
         student.setProfesor(profesor);
         profesor.getStudents().add(student);
@@ -87,10 +103,39 @@ public class ProfesorServiceImpl implements ProfesorService{
         Profesor profesor = profesorRepository.findById(id_profesor)
                 .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el profesor con id " + id_profesor, 404));
 
+
         List<StudentSimpleOutputDto> estudiantes = studentRepository.findByIdProfesor(id_profesor).stream().map(Student::studentSimpleToOutputDto).toList();
         Set<StudentSimpleOutputDto> estud = new HashSet<>(estudiantes);
 
         return new ProfesorWithStudentOutputDto(profesor.getIdProfesor(),
                 profesor.getComments(), profesor.getBranch(), estud);
+    }
+
+    @Override
+    public ProfesorSimpleOutputDto updateProfesor(int id, ProfesorInputDto profesorInputDto) {
+        Profesor profesor = profesorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("El estudiante con id: " + id + ", no se ha encontrado", 404));
+        Profesor updatedProfesor = new Profesor(profesorInputDto);
+        int idPersona = profesorInputDto.getId_persona();
+        Optional<Persona> personaOpt = personaRepository.findById(idPersona);
+        Persona persona = personaOpt.orElseThrow(() -> new EntityNotFoundException("No se ha encontrado la persona con id " + id, 404));
+        updatedProfesor.setIdProfesor(id);
+        updatedProfesor.setPersona(persona);
+        return profesorRepository.save(updatedProfesor).profesorToSimpleOutputDto();
+    }
+
+    @Override
+    public void deleteProfesorById(int id) {
+        Profesor profesor = profesorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el profesor con id: " + id, 404));
+        Set<Student> studentList = studentRepository.findByIdProfesor(id);
+        if (!studentList.isEmpty()){
+            throw new EntityNotFoundException("No puedes eliminar profesor ya que tiene estudiantes",422);
+
+        }
+        Persona persona = profesor.getPersona();
+        persona.setProfesor(null);
+        personaRepository.save(persona);
+        profesorRepository.deleteById(id);
     }
 }

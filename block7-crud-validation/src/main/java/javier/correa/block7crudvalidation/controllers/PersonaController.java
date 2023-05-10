@@ -44,7 +44,6 @@ public class PersonaController {
     public ResponseEntity<String> deletePersona(@PathVariable int id){
         personaService.deletePersonaById(id);
         return new ResponseEntity<>("Persona con el id: " + id + " ha sido eliminada", HttpStatus.OK);
-
     }
 
     @PutMapping("/{id}")
