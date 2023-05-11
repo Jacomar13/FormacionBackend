@@ -4,8 +4,6 @@ import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorInput
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorSimpleOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorWithStudentOutputDto;
-import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 
 public interface ProfesorService {
     ProfesorOutputDto addProfesor(ProfesorInputDto profesorInputDto) throws Exception;

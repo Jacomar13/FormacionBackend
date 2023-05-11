@@ -1,7 +1,7 @@
 package javier.correa.block7crudvalidation.domain;
 
 import jakarta.persistence.*;
-import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorWithStudentOutputDto;
+
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
@@ -34,7 +34,6 @@ public class Student {
     private Persona persona;
 
     @ManyToOne
-
     @JoinColumn(name = "id_profesor", nullable = true)
     private Profesor profesor;
 

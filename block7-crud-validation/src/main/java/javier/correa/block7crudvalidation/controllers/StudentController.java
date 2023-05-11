@@ -1,19 +1,15 @@
 package javier.correa.block7crudvalidation.controllers;
 
 import javier.correa.block7crudvalidation.application.StudentService;
-import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
-
 import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicUpdateInputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RequestMapping("/student")
 @RestController

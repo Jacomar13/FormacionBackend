@@ -1,7 +1,6 @@
 package javier.correa.block7crudvalidation.controllers.dto.student;
 
 import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicOutputDto;
-import javier.correa.block7crudvalidation.domain.StudentTopic;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

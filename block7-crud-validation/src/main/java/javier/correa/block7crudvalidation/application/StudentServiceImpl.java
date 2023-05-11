@@ -1,8 +1,5 @@
 package javier.correa.block7crudvalidation.application;
 
-import jakarta.validation.constraints.Null;
-import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
@@ -18,9 +15,9 @@ import javier.correa.block7crudvalidation.repository.StudentRepository;
 import javier.correa.block7crudvalidation.repository.StudentTopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+
 
 import java.util.List;
 import java.util.Optional;

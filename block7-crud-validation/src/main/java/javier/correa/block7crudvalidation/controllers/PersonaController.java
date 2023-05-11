@@ -1,17 +1,18 @@
 package javier.correa.block7crudvalidation.controllers;
 
 import javier.correa.block7crudvalidation.application.PersonaService;
+import javier.correa.block7crudvalidation.application.ProfesorClient;
 import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorOutputDto;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+
 
 
 @RestController
@@ -20,11 +21,13 @@ public class PersonaController {
     @Autowired
     PersonaService personaService;
 
-    private final RestTemplate restTemplate;
+    /*private final RestTemplate restTemplate;
 
     public PersonaController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-    }
+    }*/
+    @Autowired
+    ProfesorClient profesorClient;
 
     @PostMapping
     public ResponseEntity<PersonaOutputDto> addPersona(@RequestBody PersonaInputDto persona) throws Exception {
@@ -59,7 +62,7 @@ public class PersonaController {
         return new ResponseEntity<>(personaService.updatePersona(id, personaInputDto), HttpStatus.OK);
     }
 
-    @GetMapping("/profesor/{id}")
+    /*@GetMapping("/profesor/{id}")
     public ResponseEntity<ProfesorOutputDto> getProfesor(@PathVariable int id) {
         String url = "http://localhost:8081/profesor/{id}";
         ProfesorOutputDto profesor = restTemplate.getForObject(url, ProfesorOutputDto.class, id);
@@ -67,5 +70,10 @@ public class PersonaController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(profesor);
+    }*/
+    @GetMapping("/profesor/{id}")
+    public ProfesorOutputDto getProfesor(@PathVariable int id) {
+        ProfesorOutputDto profesor = profesorClient.getProfesor(id);
+        return profesor;
     }
 }

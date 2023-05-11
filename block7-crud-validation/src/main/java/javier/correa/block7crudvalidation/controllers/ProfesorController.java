@@ -5,7 +5,6 @@ import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorInput
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorSimpleOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorWithStudentOutputDto;
-import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
