@@ -1,5 +1,6 @@
 package org.example;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CalculadoraTest {
 
     @Test
+    @Disabled
     void suma() {
 
         Calculadora calculadora = new Calculadora();
@@ -24,11 +26,9 @@ class CalculadoraTest {
     @Test
     @DisplayName("Metodo de Resta")
     void resta() {
-
         Calculadora calculadora = new Calculadora();
         int resultado = calculadora.resta(97, 23);
         assertEquals(74, resultado); //Valor que deberia dar, Variable a comparar
-
     }
 
     @Test

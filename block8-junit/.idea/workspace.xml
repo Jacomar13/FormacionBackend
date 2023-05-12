@@ -56,7 +56,17 @@
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CalculadoraTest.resta">
+  <component name="RunManager" selected="JUnit.All">
+    <configuration name="All" type="JUnit" factoryName="JUnit">
+      <module name="TestingConJunit" />
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.CalculadoraTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CalculadoraTest.ejemploBlankOrNullString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TestingConJunit" />
       <extension name="coverage">
@@ -68,22 +78,6 @@
       <option name="PACKAGE_NAME" value="org.example" />
       <option name="MAIN_CLASS_NAME" value="org.example.CalculadoraTest" />
       <option name="METHOD_NAME" value="ejemploBlankOrNullString" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CalculadoraTest.ejemploEmptyString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TestingConJunit" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example" />
-      <option name="MAIN_CLASS_NAME" value="org.example.CalculadoraTest" />
-      <option name="METHOD_NAME" value="ejemploEmptyString" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -121,6 +115,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CalculadoraTest.suma" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestingConJunit" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.CalculadoraTest" />
+      <option name="METHOD_NAME" value="suma" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CalculadoraTest.whenStringIsEmpty_thenCorrect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TestingConJunit" />
       <extension name="coverage">
@@ -147,20 +157,21 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.All" />
       <item itemvalue="JUnit.Tag(Avanzada)" />
       <item itemvalue="JUnit.CalculadoraTest.resta" />
+      <item itemvalue="JUnit.CalculadoraTest.suma" />
       <item itemvalue="JUnit.CalculadoraTest.ejemploBlankOrNullString" />
-      <item itemvalue="JUnit.CalculadoraTest.ejemploEmptyString" />
       <item itemvalue="JUnit.CalculadoraTest.ejemploPatron" />
       <item itemvalue="JUnit.CalculadoraTest.whenStringIsEmpty_thenCorrect" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CalculadoraTest.suma" />
         <item itemvalue="JUnit.CalculadoraTest.resta" />
         <item itemvalue="JUnit.CalculadoraTest.ejemploPatron" />
         <item itemvalue="JUnit.CalculadoraTest.whenStringIsEmpty_thenCorrect" />
         <item itemvalue="JUnit.CalculadoraTest.ejemploBlankOrNullString" />
-        <item itemvalue="JUnit.CalculadoraTest.ejemploEmptyString" />
       </list>
     </recent_temporary>
   </component>
