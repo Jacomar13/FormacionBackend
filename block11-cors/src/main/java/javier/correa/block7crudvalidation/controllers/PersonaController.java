@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/persona")
+@CrossOrigin("*")
 public class PersonaController {
     @Autowired
     PersonaService personaService;
@@ -29,7 +29,8 @@ public class PersonaController {
     @Autowired
     ProfesorClient profesorClient;
 
-    @PostMapping
+
+    @PostMapping("/addperson")
     public ResponseEntity<PersonaOutputDto> addPersona(@RequestBody PersonaInputDto persona) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(personaService.addPersona(persona));
     }

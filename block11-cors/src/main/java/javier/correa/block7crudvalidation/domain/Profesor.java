@@ -43,7 +43,7 @@ public class Profesor {
     }
 
     public ProfesorOutputDto profesorToOutputDto(){
-        return new ProfesorOutputDto(this.idProfesor, this.comments, this.branch, this.persona.getId_persona(),this.persona.getUsuario(),this.persona.getName(), this.persona.getSurname(), this.persona.getCompany_email(), this.persona.getPersonal_email(), this.persona.getCity(), this.persona.isActive(), this.persona.getCreated_date(), this.persona.getImagen_url(), this.persona.getTermination_date());
+        return new ProfesorOutputDto(this.idProfesor, this.comments, this.branch, this.persona.getId_persona(),this.persona.getUsername(),this.persona.getName(), this.persona.getSurname(), this.persona.getEmailcomp(), this.persona.getEmailpers(), this.persona.getCity(), this.persona.isActive(), this.persona.getCreated_date(), this.persona.getImagen_url(), this.persona.getFinish_date());
     }
     public ProfesorSimpleOutputDto profesorToSimpleOutputDto(){
         return new ProfesorSimpleOutputDto(this.idProfesor, this.persona.getId_persona(), this.comments, this.branch);

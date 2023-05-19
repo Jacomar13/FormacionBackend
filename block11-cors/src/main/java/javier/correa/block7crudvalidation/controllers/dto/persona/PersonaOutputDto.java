@@ -10,15 +10,16 @@ import java.util.Date;
 public class PersonaOutputDto {
     private int id_persona;
 
-    private String usuario;
+    private String username;
+
+    private String passwd;
 
     private String name;
 
     private String surname;
 
-    private String company_email;
-
-    private String personal_email;
+    private String emailcomp;
+    private String emailpers;
 
     private String city;
 
@@ -28,5 +29,5 @@ public class PersonaOutputDto {
 
     private String imagen_url;
 
-    private Date termination_date;
+    private Date finish_date;
 }
