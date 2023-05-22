@@ -7,17 +7,17 @@ import java.util.Date;
 public class PersonaInputDto {
     private int id_persona;
 
-    private String username;
+    private String usuario;
 
-    private String passwd;
+    private String password;
 
     private String name;
 
     private String surname;
 
-    private String emailcomp;
+    private String company_email;
 
-    private String emailpers;
+    private String personal_email;
 
     private String city;
 
@@ -27,5 +27,5 @@ public class PersonaInputDto {
 
     private String imagen_url;
 
-    private Date finish_date;
+    private Date termination_date;
 }

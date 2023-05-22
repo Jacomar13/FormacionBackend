@@ -21,16 +21,16 @@ public class Persona {
     /*@OneToOne*/
     private int id_persona;
     @Column(nullable = false, length = 10)
-    private String username;
+    private String usuario;
     @Column(nullable = false)
-    private String passwd;
+    private String password;
     @Column(nullable = false)
     private String name;
     private String surname;
     @Column(nullable = false)
-    private String emailcomp;
+    private String company_email;
     @Column(nullable = false)
-    private String emailpers;
+    private String personal_email;
     @Column(nullable = false)
     private String city;
     @Column(nullable = false)
@@ -38,7 +38,7 @@ public class Persona {
     @Column(nullable = false)
     private Date created_date;
     private String imagen_url;
-    private Date finish_date;
+    private Date termination_date;
     @OneToOne
     private Student student;
     @OneToOne
@@ -46,22 +46,22 @@ public class Persona {
 
     public Persona(PersonaInputDto personaInputDto) {
         this.id_persona = personaInputDto.getId_persona();
-        this.username = personaInputDto.getUsername();
-        this.passwd = personaInputDto.getPasswd();
+        this.usuario = personaInputDto.getUsuario();
+        this.password = personaInputDto.getPassword();
         this.name = personaInputDto.getName();
         this.surname = personaInputDto.getSurname();
-        this.emailcomp = personaInputDto.getEmailcomp();
-        this.emailpers = personaInputDto.getEmailpers();
+        this.company_email = personaInputDto.getCompany_email();
+        this.personal_email = personaInputDto.getPersonal_email();
         this.city = personaInputDto.getCity();
         this.active = personaInputDto.isActive();
         this.created_date = personaInputDto.getCreated_date();
         this.imagen_url = personaInputDto.getImagen_url();
-        this.finish_date = personaInputDto.getFinish_date();
+        this.termination_date = personaInputDto.getTermination_date();
     }
     public PersonaOutputDto personaToOutputDto(){
-        return new PersonaOutputDto(this.id_persona, this.username,this.passwd, this.name, this.surname, this.emailcomp, this.emailpers, this.city, this.active, this.created_date, this.imagen_url, this.finish_date);
+        return new PersonaOutputDto(this.id_persona, this.usuario,this.password, this.name, this.surname, this.company_email, this.personal_email, this.city, this.active, this.created_date, this.imagen_url, this.termination_date);
     }
     public PersonaProfesorWithStudentsOutputDto personaProfesorWithStudentsToOutputDto(){
-        return new PersonaProfesorWithStudentsOutputDto(this.id_persona, this.username, this.name, this.surname, this.emailcomp, this.emailpers, this.city, this.active, this.created_date, this.imagen_url, this.finish_date, this.profesor.profesorWithStudentToOutputDto());
+        return new PersonaProfesorWithStudentsOutputDto(this.id_persona, this.usuario, this.name, this.surname, this.company_email, this.personal_email, this.city, this.active, this.created_date, this.imagen_url, this.termination_date, this.profesor.profesorWithStudentToOutputDto());
     }
 }

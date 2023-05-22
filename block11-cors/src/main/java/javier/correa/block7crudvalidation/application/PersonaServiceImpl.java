@@ -33,12 +33,12 @@ public class PersonaServiceImpl implements PersonaService{
     ProfesorRepository profesorRepository;
     @Override
     public PersonaOutputDto addPersona(PersonaInputDto persona) throws UnprocesableException {
-        if (persona.getUsername()== null) {throw new UnprocesableException("El usuario no puede estar vacío", 422);}
-        if (persona.getUsername().length() < 6 || persona.getUsername().length() > 10){throw new UnprocesableException("La longitud de usuario no pueder ser inferior a 6 ni superior a 10 caracteres", 422);}
-        if (Objects.isNull(persona.getPasswd()) || persona.getPasswd().isBlank()) {throw new UnprocesableException("La contraseña no puede estar vacía", 422);}
+        if (persona.getUsuario()== null) {throw new UnprocesableException("El usuario no puede estar vacío", 422);}
+        if (persona.getUsuario().length() < 6 || persona.getUsuario().length() > 10){throw new UnprocesableException("La longitud de usuario no pueder ser inferior a 6 ni superior a 10 caracteres", 422);}
+        if (Objects.isNull(persona.getPassword()) || persona.getPassword().isBlank()) {throw new UnprocesableException("La contraseña no puede estar vacía", 422);}
         if (persona.getName() == null) {throw new UnprocesableException("El nombre no puede estar vacío", 422);}
-        if (persona.getEmailcomp() == null) {throw new UnprocesableException("El correo profesional no puede estar vacío", 422);}
-        if (persona.getEmailpers() == null) {throw new UnprocesableException("El correo personal no puede estar vacío", 422);}
+        if (persona.getCompany_email() == null) {throw new UnprocesableException("El correo profesional no puede estar vacío", 422);}
+        if (persona.getPersonal_email() == null) {throw new UnprocesableException("El correo personal no puede estar vacío", 422);}
         if (persona.getCity() == null) {throw new UnprocesableException("La ciudad no puede estar vacía", 422);}
         if (persona.isActive() == false) {throw new UnprocesableException("El usuario no puede estar NO ACTIVADO", 422);}
         if (persona.getCreated_date() == null) {throw new UnprocesableException("La fecha de creación no puede estar vacía", 422);}
@@ -73,9 +73,9 @@ public class PersonaServiceImpl implements PersonaService{
 
             ProfesorWithStudentOutputDto profesor =new ProfesorWithStudentOutputDto(profesorExists.getIdProfesor(),
                     profesorExists.getComments(), profesorExists.getBranch(), estud);
-            return new PersonaProfesorWithStudentsOutputDto(persona.getId_persona(), persona.getUsername(), persona.getName(), persona.getSurname(),
-                    persona.getEmailcomp(), persona.getEmailpers(), persona.getCity(), persona.isActive(), persona.getCreated_date(),
-                    persona.getImagen_url(), persona.getFinish_date(), profesor);
+            return new PersonaProfesorWithStudentsOutputDto(persona.getId_persona(), persona.getUsuario(), persona.getName(), persona.getSurname(),
+                    persona.getCompany_email(), persona.getPersonal_email(), persona.getCity(), persona.isActive(), persona.getCreated_date(),
+                    persona.getImagen_url(), persona.getTermination_date(), profesor);
         }
         else if (profesorExists == null && personType.equals("profesor")) {
             throw new EntityNotFoundException("El profesor con id: " + id +" que estás buscando, es un estudiante",404);
