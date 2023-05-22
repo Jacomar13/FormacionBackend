@@ -46,7 +46,7 @@ public class PersonaController {
     }
 
 
-    @GetMapping
+    @GetMapping("/getall")
     public Iterable<PersonaOutputDto> showAllPersonas (
             @RequestParam(defaultValue = "0", required = false) int pageNumber,
             @RequestParam(defaultValue = "25", required = false) int pageSize) {
