@@ -31,34 +31,9 @@ public class FileController {
     @RequestMapping(method = POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity addFile(@RequestParam(name = "ruta", defaultValue = "guardarficheros", required = false) String ruta, @RequestParam("file")MultipartFile file){
         try {
-            // Verificar si se proporcionó un archivo
-            if (file.isEmpty()) {
-                return new ResponseEntity<>("No se proporcionó ningún archivo.", HttpStatus.BAD_REQUEST);
-            }
-
-            // Guardar el archivo
-            Path directorioDestino = Paths.get(ruta);
-            File directorio = directorioDestino.toFile();
-
-            // Crear el directorio si no existe
-            if (!directorio.exists()) {
-                directorio.mkdirs();
-            }
-            file.transferTo(Path.of(directorio + "/" + file.getOriginalFilename()));
-
-            /*file.transferTo(new File("/guardarficheros/" + ruta));*/
-            contador = contador + 1;
-            javier.correa.block11uploaddownloadfiles.domain.File archivoDatos = new javier.correa.block11uploaddownloadfiles.domain.File();
-            archivoDatos.setFileName(file.getOriginalFilename());
-            archivoDatos.setFecha(LocalDateTime.now().toString());
-            archivoDatos.setCategoria(StringUtils.getFilenameExtension(archivoDatos.getFileName()));
-            archivoDatos.setId(contador);
-            archivoDatos.setRuta(ruta);
-            fileRepository.save(archivoDatos);
-            return ResponseEntity.status(HttpStatus.CREATED).body(archivoDatos);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body("Error al subir el fichero");
+            return new ResponseEntity<>(fileService.addFile(ruta, file), HttpStatus.OK);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
