@@ -20,8 +20,9 @@ public class File {
     private String fileName;
     private String categoria;
     private String fecha;
+    private String ruta;
 
     public FileOutputDto fileToOutputDto(){
-        return new FileOutputDto(this.id, this.fileName, this.categoria, this.fecha);
+        return new FileOutputDto(this.id, this.fileName, this.categoria, this.fecha, this.ruta);
     }
 }

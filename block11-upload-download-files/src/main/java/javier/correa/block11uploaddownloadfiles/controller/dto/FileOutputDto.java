@@ -13,4 +13,5 @@ public class FileOutputDto {
     private String fileName;
     private String categoria;
     private String fecha;
+    private String ruta;
 }
