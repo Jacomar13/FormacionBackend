@@ -4,6 +4,9 @@ import javier.correa.block11uploaddownloadfiles.controller.dto.FileInputDto;
 import javier.correa.block11uploaddownloadfiles.controller.dto.FileOutputDto;
 import javier.correa.block11uploaddownloadfiles.repositories.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class FileServiceImpl implements FileService{
@@ -39,7 +43,6 @@ public class FileServiceImpl implements FileService{
             }
             file.transferTo(Path.of(directorio + "/" + file.getOriginalFilename()));
 
-
             javier.correa.block11uploaddownloadfiles.domain.File archivoDatos = new javier.correa.block11uploaddownloadfiles.domain.File();
             archivoDatos.setFileName(file.getOriginalFilename());
             archivoDatos.setFecha(LocalDateTime.now().toString());
@@ -48,4 +51,43 @@ public class FileServiceImpl implements FileService{
             fileRepository.save(archivoDatos);
             return archivoDatos;
     }
+
+    @Override
+    public Resource downloadFileById(int id) {
+        Optional<javier.correa.block11uploaddownloadfiles.domain.File> fileOpt = fileRepository.findById(id);
+        javier.correa.block11uploaddownloadfiles.domain.File file = fileOpt.orElseThrow(() -> new RuntimeException("No se ha podido encontrar el archivo"));
+
+        Resource resource = new FileSystemResource(file.getRuta() + "\\" + file.getFileName());
+        if (!resource.exists()) throw new RuntimeException("No se ha podido encontrar el archivo");
+        return resource;
+    }
+
+    @Override
+    public Resource downloadFileByName(String name) {
+        Optional<javier.correa.block11uploaddownloadfiles.domain.File> fileOpt = fileRepository.findByFileName(name);
+        javier.correa.block11uploaddownloadfiles.domain.File file = fileOpt.orElseThrow(() -> new RuntimeException("No se ha podido encontrar el archivo"));
+
+        Resource resource = new FileSystemResource(file.getRuta() + "\\" + name);
+        if (!resource.exists()) throw new RuntimeException("No se ha podido encontrar el archivo");
+        return resource;
+    }
+
+    @Override
+    public FileOutputDto getFileByName(String name) {
+        Optional<javier.correa.block11uploaddownloadfiles.domain.File> fileOpt = fileRepository.findByFileName(name);
+        javier.correa.block11uploaddownloadfiles.domain.File file = fileOpt.orElseThrow(() -> new RuntimeException("No se ha podido encontrar el archivo"));
+
+        FileOutputDto fileDto = file.fileToOutputDto();
+        return fileDto;
+    }
+
+    @Override
+    public FileOutputDto getFileById(int id) {
+        Optional<javier.correa.block11uploaddownloadfiles.domain.File> fileOpt = fileRepository.findById(id);
+        javier.correa.block11uploaddownloadfiles.domain.File file = fileOpt.orElseThrow(() -> new RuntimeException("No se ha podido encontrar el archivo"));
+
+        FileOutputDto fileDto = file.fileToOutputDto();
+        return fileDto;
+    }
+
 }
