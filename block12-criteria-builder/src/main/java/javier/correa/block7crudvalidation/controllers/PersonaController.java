@@ -83,13 +83,15 @@ public class PersonaController {
         return profesor;
     }
     @GetMapping("/customquery")
-    public Iterable<PersonaOutputDto> findPersontByNameAndOrLastname(
+    public Iterable<PersonaOutputDto> findPersonQuery(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String surname,
             @RequestParam(required = false) String usuario,
             @RequestParam(required = false) String created_date,
             @RequestParam(defaultValue = "asc", required = false) String type,
-            @RequestParam(required = false, defaultValue = "none") String nameOrUser) {
+            @RequestParam(required = false, defaultValue = "none") String nameOrUser,
+            @RequestParam(defaultValue = "1") int pageNumber,
+             @RequestParam(defaultValue = "10", required = false) int pageSize) {
 
         HashMap<String, Object> data = new HashMap<>();
 
@@ -99,7 +101,7 @@ public class PersonaController {
         if(created_date != null) data.put ("created_date", created_date);
 
 
-        return personaRepository.getCustomQuery(data, type, nameOrUser);
+        return personaRepository.getCustomQuery(data, type, nameOrUser, pageNumber, pageSize);
     }
 
 }
