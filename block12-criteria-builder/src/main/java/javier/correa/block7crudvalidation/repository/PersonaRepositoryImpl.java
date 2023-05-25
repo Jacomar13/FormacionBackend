@@ -11,6 +11,7 @@ import javier.correa.block7crudvalidation.domain.Persona;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class PersonaRepositoryImpl{
     private EntityManager entityManager;
 
     public List<PersonaOutputDto> getCustomQuery(
-            HashMap<String, Object> conditions) {
+            HashMap<String, Object> conditions, String type) {
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Persona> query = cb.createQuery(Persona.class);
@@ -32,25 +33,49 @@ public class PersonaRepositoryImpl{
                 case "name":
                     predicates.add(cb.like(root.get(field),
                             "%" + (String) value + "%"));
-                    query.orderBy(cb.asc(root.get("name")));
+                    /*if (type.equals("asc")){
+                        query.orderBy(cb.asc(root.get("name")));
+                    }
+                    if (type.equals("desc")){
+                       query.orderBy(cb.desc(root.get("name")));
+                    }*/
                     break;
                 case "surname":
                     predicates.add(cb.like(root.get(field),
                             "%" + (String) value + "%"));
-                    query.orderBy(cb.asc(root.get("surname")));
+                    /*if (type.equals("asc")){
+                        query.orderBy(cb.asc(root.get("surname")));
+                    }
+                    if (type.equals("desc")){
+                        query.orderBy(cb.desc(root.get("surname")));
+                    }*/
                     break;
                 case "created_date":
                     predicates.add(cb.like(root.get(field),
                             "%" + (String) value + "%"));
-                    query.orderBy(cb.asc(root.get("created_date")));
+                    /*if (type.equals("asc")){
+                        query.orderBy(cb.asc(root.get("created_date")));
+                    }
+                    if (type.equals("desc")){
+                        query.orderBy(cb.desc(root.get("created_date")));
+                    }*/
                     break;
                 case "usuario":
                     predicates.add(cb.like(root.get(field),
                             "%" + (String) value + "%"));
-                    query.orderBy(cb.asc(root.get("usuario")));
+                    /*if (type.equals("asc")){
+                        query.orderBy(cb.asc(root.get("usuario")));
+                    }
+                    if (type.equals("desc")){
+                        query.orderBy(cb.desc(root.get("usuario")));
+                    }*/
                     break;
             }
+            if (type.equals("desc")){
+                query.orderBy(cb.desc(root.get(field)));
+            }
         });
+
 
         query.select(root)
                 .where(predicates.toArray(new Predicate[predicates.size()]));
