@@ -6,6 +6,8 @@ import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaInputDt
 import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorOutputDto;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
+import javier.correa.block7crudvalidation.repository.PersonaRepository;
+import javier.correa.block7crudvalidation.repository.PersonaRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+import java.util.HashMap;
 
 
 @RestController
@@ -28,6 +32,8 @@ public class PersonaController {
     }*/
     @Autowired
     ProfesorClient profesorClient;
+    @Autowired
+    PersonaRepositoryImpl personaRepository;
 
     @PostMapping
     public ResponseEntity<PersonaOutputDto> addPersona(@RequestBody PersonaInputDto persona) throws Exception {
@@ -76,4 +82,22 @@ public class PersonaController {
         ProfesorOutputDto profesor = profesorClient.getProfesor(id);
         return profesor;
     }
+    @GetMapping("/customquery")
+    public Iterable<PersonaOutputDto> findPersontByNameAndOrLastname(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String surname,
+            @RequestParam(required = false) String usuario,
+            @RequestParam(required = false) String created_date) {
+
+        HashMap<String, Object> data = new HashMap<>();
+
+        if(name != null) data.put("name",name);
+
+        if(surname != null) data.put ("surname", surname);
+        if(usuario != null) data.put("usuario",usuario);
+        if(created_date != null) data.put ("created_date", created_date);
+
+        return personaRepository.getCustomQuery(data);
+    }
+
 }
