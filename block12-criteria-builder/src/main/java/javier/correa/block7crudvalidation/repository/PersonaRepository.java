@@ -11,6 +11,6 @@ import java.util.List;
 public interface PersonaRepository extends JpaRepository<Persona, Integer> {
     List<Persona> findByUsuario(String user);
 
-    List<PersonaOutputDto> getCustomQuery(HashMap<String, Object> conditions, String type);
+    List<PersonaOutputDto> getCustomQuery(HashMap<String, Object> conditions, String type, String nameOrUser);
 
 }

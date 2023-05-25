@@ -88,7 +88,8 @@ public class PersonaController {
             @RequestParam(required = false) String surname,
             @RequestParam(required = false) String usuario,
             @RequestParam(required = false) String created_date,
-            @RequestParam(defaultValue = "asc",required = false) String type) {
+            @RequestParam(defaultValue = "asc", required = false) String type,
+            @RequestParam(required = false, defaultValue = "none") String nameOrUser) {
 
         HashMap<String, Object> data = new HashMap<>();
 
@@ -98,7 +99,7 @@ public class PersonaController {
         if(created_date != null) data.put ("created_date", created_date);
 
 
-        return personaRepository.getCustomQuery(data, type);
+        return personaRepository.getCustomQuery(data, type, nameOrUser);
     }
 
 }

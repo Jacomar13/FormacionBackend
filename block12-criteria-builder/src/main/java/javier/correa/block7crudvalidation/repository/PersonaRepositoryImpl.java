@@ -20,7 +20,7 @@ public class PersonaRepositoryImpl{
     private EntityManager entityManager;
 
     public List<PersonaOutputDto> getCustomQuery(
-            HashMap<String, Object> conditions, String type) {
+            HashMap<String, Object> conditions, String type, String nameOrUser) {
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Persona> query = cb.createQuery(Persona.class);
@@ -71,8 +71,21 @@ public class PersonaRepositoryImpl{
                     }*/
                     break;
             }
-            if (type.equals("desc")){
-                query.orderBy(cb.desc(root.get(field)));
+            if (type.equals("desc")) {
+                if (nameOrUser.equals("name") || nameOrUser.equals("usuario")){
+
+                    query.orderBy(cb.desc((root.get(nameOrUser))));
+                    query.orderBy(cb.desc((root.get(field))));
+                } else {
+                    query.orderBy(cb.desc((root.get(field))));
+                }
+            } else {
+                if (nameOrUser.equals("name") || nameOrUser.equals("usuario")){
+                    query.orderBy(cb.asc((root.get(nameOrUser))));
+                    query.orderBy(cb.asc((root.get(field))));
+                } else {
+                    query.orderBy(cb.asc((root.get(field))));
+                }
             }
         });
 
