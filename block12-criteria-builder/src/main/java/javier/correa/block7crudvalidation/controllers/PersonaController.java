@@ -90,7 +90,7 @@ public class PersonaController {
             @RequestParam(required = false) String created_date,
             @RequestParam(defaultValue = "asc", required = false) String type,
             @RequestParam(required = false, defaultValue = "none") String nameOrUser,
-            @RequestParam int pageNumber,
+            @RequestParam(defaultValue = "1") int pageNumber,
             @RequestParam(defaultValue = "10", required = false) int pageSize) {
 
         HashMap<String, Object> data = new HashMap<>();
