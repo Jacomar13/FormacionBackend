@@ -33,42 +33,18 @@ public class PersonaRepositoryImpl{
                 case "name":
                     predicates.add(cb.like(root.get(field),
                             "%" + (String) value + "%"));
-                    /*if (type.equals("asc")){
-                        query.orderBy(cb.asc(root.get("name")));
-                    }
-                    if (type.equals("desc")){
-                       query.orderBy(cb.desc(root.get("name")));
-                    }*/
                     break;
                 case "surname":
                     predicates.add(cb.like(root.get(field),
                             "%" + (String) value + "%"));
-                    /*if (type.equals("asc")){
-                        query.orderBy(cb.asc(root.get("surname")));
-                    }
-                    if (type.equals("desc")){
-                        query.orderBy(cb.desc(root.get("surname")));
-                    }*/
                     break;
                 case "created_date":
                     predicates.add(cb.like(root.get(field),
                             "%" + (String) value + "%"));
-                    /*if (type.equals("asc")){
-                        query.orderBy(cb.asc(root.get("created_date")));
-                    }
-                    if (type.equals("desc")){
-                        query.orderBy(cb.desc(root.get("created_date")));
-                    }*/
                     break;
                 case "usuario":
                     predicates.add(cb.like(root.get(field),
                             "%" + (String) value + "%"));
-                    /*if (type.equals("asc")){
-                        query.orderBy(cb.asc(root.get("usuario")));
-                    }
-                    if (type.equals("desc")){
-                        query.orderBy(cb.desc(root.get("usuario")));
-                    }*/
                     break;
             }
             if (type.equals("desc")) {

@@ -100,7 +100,6 @@ public class PersonaController {
         if(usuario != null) data.put("usuario",usuario);
         if(created_date != null) data.put ("created_date", created_date);
 
-
         return personaRepository.getCustomQuery(data, type, nameOrUser, pageNumber, pageSize);
     }
 
