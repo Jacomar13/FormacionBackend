@@ -60,12 +60,12 @@ public class FileController {
     }
 
     @GetMapping("/getFileById/{id}")
-    public ResponseEntity<FileOutputDto> getFileById(@PathVariable int id) {
-        return new ResponseEntity<FileOutputDto>(fileService.getFileById(id), HttpStatus.OK);
+    public ResponseEntity<?> getFileById(@PathVariable int id) {
+        return new ResponseEntity<>(fileService.getFileById(id), HttpStatus.OK);
     }
     @GetMapping("/getFileByName/{name}")
     public ResponseEntity<FileOutputDto> getFileByName(@PathVariable String name) {
-        return new ResponseEntity<FileOutputDto>(fileService.getFileByName(name), HttpStatus.OK);
+        return new ResponseEntity<>(fileService.getFileByName(name), HttpStatus.OK);
     }
 
 }
