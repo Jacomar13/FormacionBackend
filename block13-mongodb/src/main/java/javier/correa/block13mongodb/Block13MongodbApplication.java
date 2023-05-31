@@ -1,13 +1,13 @@
-package javier.correa.block12mongodb;
+package javier.correa.block13mongodb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Block12MongodbApplication {
+public class Block13MongodbApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Block12MongodbApplication.class, args);
+		SpringApplication.run(Block13MongodbApplication.class, args);
 	}
 
 }

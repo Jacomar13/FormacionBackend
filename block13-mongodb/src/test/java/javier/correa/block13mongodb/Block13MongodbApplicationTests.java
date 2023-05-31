@@ -1,10 +1,10 @@
-package javier.correa.block12mongodb;
+package javier.correa.block13mongodb;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Block12MongodbApplicationTests {
+class Block13MongodbApplicationTests {
 
 	@Test
 	void contextLoads() {
