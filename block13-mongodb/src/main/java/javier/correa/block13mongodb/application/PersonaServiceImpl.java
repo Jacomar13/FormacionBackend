@@ -57,7 +57,7 @@ public class PersonaServiceImpl implements PersonaService {
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(personId));
         Persona personaEncontrada = mongoTemplate.findOne(query, Persona.class);
-        
+
         if (personaEncontrada == null) {
             throw new RuntimeException("Persona no encontrada");
         } else {
