@@ -19,6 +19,6 @@ public interface PersonaService {
 
     void deletePersonaById(int id) throws UnprocesableException;
 
-    PersonaOutputDto updatePersona(int id, PersonaInputDto personaInputDto);
+    PersonaOutputDto updatePersona(Integer id, PersonaInputDto personaInputDto);
 
 }

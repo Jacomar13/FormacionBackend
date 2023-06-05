@@ -133,7 +133,7 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public PersonaOutputDto updatePersona(int id, PersonaInputDto personaInputDto) {
+    public PersonaOutputDto updatePersona(Integer id, PersonaInputDto personaInputDto) {
         Persona updatedPersona = new Persona(personaInputDto);
         updatedPersona.setId_persona(id);
         return personaRepository.save(updatedPersona).personaToOutputDto();
