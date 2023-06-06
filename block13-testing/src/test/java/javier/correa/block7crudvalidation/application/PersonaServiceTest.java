@@ -97,9 +97,9 @@ class PersonaServiceTest {
         assertNotNull(personaDevuelta);
 
         //Caso en el que persona es estudiante y el tipo de persona es correcto
-    
-        Mockito.when(studentRepository.findByIdPersona(1)).thenReturn(null);
-        Mockito.when(profesorRepository.findByIdPersona(1)).thenReturn(null);
+
+        Mockito.when(studentRepository.findByIdPersona(2)).thenReturn(null);
+        Mockito.when(profesorRepository.findByIdPersona(2)).thenReturn(null);
 
     }
 

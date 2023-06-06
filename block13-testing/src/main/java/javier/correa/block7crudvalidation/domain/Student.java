@@ -7,16 +7,15 @@ import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputD
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentWithTopicsOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicOutputDto;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "estudiantes")

@@ -1,10 +1,12 @@
 package javier.correa.block7crudvalidation.controllers.dto.student;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class StudentInputDto {
     private int id_student;
     private int id_persona;

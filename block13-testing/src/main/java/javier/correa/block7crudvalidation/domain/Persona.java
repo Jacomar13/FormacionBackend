@@ -5,10 +5,7 @@ import jakarta.persistence.*;
 import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaProfesorWithStudentsOutputDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
