@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee4394ea-b8cf-4d42-a5be-71e86b6af516" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../block13-mongodb/src/main/java/javier/correa/block13mongodb/application/PersonaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../block13-mongodb/src/main/java/javier/correa/block13mongodb/application/PersonaServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../block13-testing/src/main/java/javier/correa/block7crudvalidation/controllers/dto/student/StudentInputDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../block13-testing/src/main/java/javier/correa/block7crudvalidation/controllers/dto/student/StudentInputDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../block13-testing/src/main/java/javier/correa/block7crudvalidation/domain/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../block13-testing/src/main/java/javier/correa/block7crudvalidation/domain/Persona.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../block13-testing/src/main/java/javier/correa/block7crudvalidation/domain/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/../block13-testing/src/main/java/javier/correa/block7crudvalidation/domain/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../block13-testing/src/test/java/javier/correa/block7crudvalidation/application/PersonaServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../block13-testing/src/test/java/javier/correa/block7crudvalidation/application/PersonaServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../block13-testing/src/test/java/javier/correa/block7crudvalidation/application/StudentServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../block13-testing/src/test/java/javier/correa/block7crudvalidation/application/StudentServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +50,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/PROYECTOGIT/block8-junit&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/PROYECTOGIT/block13-testing&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;
   }
 }</component>
@@ -160,12 +164,12 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.All" />
-      <item itemvalue="JUnit.Tag(Avanzada)" />
-      <item itemvalue="JUnit.CalculadoraTest.resta" />
-      <item itemvalue="JUnit.CalculadoraTest.suma" />
       <item itemvalue="JUnit.CalculadoraTest.ejemploBlankOrNullString" />
       <item itemvalue="JUnit.CalculadoraTest.ejemploPatron" />
+      <item itemvalue="JUnit.CalculadoraTest.resta" />
+      <item itemvalue="JUnit.CalculadoraTest.suma" />
       <item itemvalue="JUnit.CalculadoraTest.whenStringIsEmpty_thenCorrect" />
+      <item itemvalue="JUnit.Tag(Avanzada)" />
     </list>
     <recent_temporary>
       <list>
