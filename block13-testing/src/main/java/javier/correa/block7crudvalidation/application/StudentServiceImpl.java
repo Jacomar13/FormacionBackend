@@ -104,13 +104,15 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public void removeTopicOfStudent(int idStudent, List<Integer> idStudy) {
-        studentRepository.findById(idStudent)
+        Student student =studentRepository.findById(idStudent)
                 .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el estudiante con id " + idStudent, 404));
         for (int i = 0; i < idStudy.size(); i++){
             StudentTopic topic = studentTopicRepository.findById(idStudy.get(i))
                     .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado la asignatura con id " + idStudy, 404));
 
+            student.setEstudios(null);
             topic.setStudent(null);
+            studentRepository.save(student);
             studentTopicRepository.save(topic);
         }
     }

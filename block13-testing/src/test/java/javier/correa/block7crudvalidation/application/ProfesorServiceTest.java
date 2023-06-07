@@ -109,7 +109,7 @@ class ProfesorServiceTest {
         List<Profesor> listaFicticia = new ArrayList<>();
         listaFicticia.add(profesor1);
         listaFicticia.add(profesor2);
-        
+
         //Con esto hacemos las páginas según la lista
         Page<Profesor> profesorPage = new PageImpl<>(listaFicticia);
 
@@ -129,7 +129,6 @@ class ProfesorServiceTest {
 
     @Test
     void getProfesorByIdAndOutputType() {
-        String outputType;
         int id = profesor1.getIdProfesor();
         Mockito.when(profesorRepository.findById(id)).thenReturn(Optional.ofNullable(profesor1));
 
@@ -157,8 +156,9 @@ class ProfesorServiceTest {
         Mockito.when(studentRepository.findById(student.getId_student())).thenReturn(Optional.ofNullable(student));
         Mockito.when(studentRepository.findById(student2.getId_student())).thenReturn(Optional.ofNullable(student2));
         Mockito.when(profesorRepository.findById(profesor1.getIdProfesor())).thenReturn(Optional.ofNullable(profesorConEstudiantes));
+        student.setProfesor(profesor1);
         Mockito.when(studentRepository.save(student)).thenReturn(student);
-        Mockito.when(profesorRepository.save(profesor1)).thenReturn(profesor1);
+        Mockito.when(profesorRepository.save(profesor1)).thenReturn(profesorConEstudiantes);
 
         profesorService.addStudentToProfesor(profesor1.getIdProfesor(), student.getId_student());
 

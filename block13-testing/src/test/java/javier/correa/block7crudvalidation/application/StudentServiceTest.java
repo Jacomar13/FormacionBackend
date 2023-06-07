@@ -1,12 +1,11 @@
 package javier.correa.block7crudvalidation.application;
 
 import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaInputDto;
-import javier.correa.block7crudvalidation.controllers.dto.persona.PersonaOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 import javier.correa.block7crudvalidation.domain.Persona;
-import javier.correa.block7crudvalidation.domain.Profesor;
+
 import javier.correa.block7crudvalidation.domain.Student;
 import javier.correa.block7crudvalidation.domain.StudentTopic;
 import javier.correa.block7crudvalidation.repository.PersonaRepository;
@@ -19,13 +18,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
@@ -41,6 +40,8 @@ class StudentServiceTest {
     PersonaInputDto personaIntroducida;
     StudentInputDto estudianteIntroducido1;
     StudentInputDto estudianteIntroducido2;
+    StudentTopic estudio1;
+    StudentTopic estudio2;
 
     @Mock
     PersonaRepository personaRepository;
@@ -48,6 +49,7 @@ class StudentServiceTest {
     StudentRepository studentRepository;
     @Mock
     ProfesorRepository profesorRepository;
+
     @Mock
     StudentTopicRepository studentTopicRepository;
 
@@ -60,6 +62,7 @@ class StudentServiceTest {
         this.persona = new Persona(contador, "Javier03", "password03", "nombre1", "surname1", "companyemail", "personalemail", "city", true, new Date(), "urlImagen", new Date(), null, null);
         this.estudianteIntroducido1 = new StudentInputDto(contador, contador, 40, "Muy bueno", "ASIR");
         this.student = new Student(contador, 40, "Muy bueno", "ASIR", persona, null, null);
+        this.estudio1= new StudentTopic(contador, null, "Matemáticas", "No lo aprueba casi nadie", new Date(), new Date());
         persona.setId_persona(contador);
         student.setPersona(persona);
         contador = contador + 1;
@@ -67,6 +70,7 @@ class StudentServiceTest {
         this.persona2 = new Persona(contador, "Javier03", "password03", "nombre1", "surname1", "companyemail", "personalemail", "city", true, new Date(), "urlImagen", new Date(), null, null);
         this.estudianteIntroducido2 = new StudentInputDto(contador, contador, 33, "No tan bueno", "BackEnd");
         this.student2 = new Student(contador, 33, "No tan bueno", "BackEnd", null, null, null);
+        this.estudio2= new StudentTopic(contador, null, "Lengua", "Es bastante fácil", new Date(), new Date());
         persona2.setId_persona(contador);
         student2.setPersona(persona2);
 
@@ -74,17 +78,23 @@ class StudentServiceTest {
         personaRepository.save(persona2);
         studentRepository.save(student);
         studentRepository.save(student2);
+        studentTopicRepository.save(estudio1);
+        studentTopicRepository.save(estudio2);
     }
 
     @Test
     void addStudent() throws Exception {
-        Mockito.when(personaRepository.save(Mockito.any(Persona.class))).thenReturn(persona);
+
+        // Cuando busque por estudiante o profesor que sean nulos para que no salte la excepción
         Mockito.when(studentRepository.findByIdPersona(1)).thenReturn(null);
         Mockito.when(profesorRepository.findByIdPersona(1)).thenReturn(null);
         Mockito.when(personaRepository.findById(estudianteIntroducido1.getId_persona())).thenReturn(Optional.of(persona));
         Mockito.when(studentRepository.save(Mockito.any(Student.class))).thenReturn(student);
 
+        // Añadimos un estudiante con el servicio
         StudentOutputDto estudianteDevuelto = studentService.addStudent(estudianteIntroducido1);
+
+        // Comprobamos que el estudiante devuelto no sea nulo
         assertNotNull(estudianteDevuelto);
     }
 
@@ -114,30 +124,62 @@ class StudentServiceTest {
 
     @Test
     void getStudentByIdAndOutputType() {
+        int id = student.getId_student();
+        Mockito.when(studentRepository.findById(id)).thenReturn(Optional.ofNullable(student));
+
+        Object estudianteCompletoObjeto = studentService.getStudentByIdAndOutputType(id, "full");
+        Object estudianteSimpleObjeto = studentService.getStudentByIdAndOutputType(id, "simple");
+        ModelMapper modelMapper = new ModelMapper();
+
+        // Convertimos con ModelMapper los objetos a su tipo correcto
+        StudentOutputDto estudianteCompleto = modelMapper.map(estudianteCompletoObjeto, StudentOutputDto.class);
+        StudentSimpleOutputDto estudianteSimple = modelMapper.map(estudianteSimpleObjeto, StudentSimpleOutputDto.class);
+
+        Mockito.verify(studentRepository, times(2)).findById(id);
+
+        assertNotNull(estudianteSimple);
+        assertNotNull(estudianteCompleto);
     }
 
     @Test
     void addTopicToStudent() {
-        /*Set<Student> listaEstudiantes = new HashSet<>();
-        listaEstudiantes.add(student);
-        Profesor profesorConEstudiantes = profesor1;
-        profesorConEstudiantes.setStudents(listaEstudiantes);
+        Set<StudentTopic> listaEstudios = new HashSet<>();
+        listaEstudios.add(estudio1);
+        Student estudianteConEstudios = student;
+        estudianteConEstudios.setEstudios(listaEstudios);
 
-        Mockito.when(studentRepository.findById(student.getId_student())).thenReturn(Optional.ofNullable(student));
-        Mockito.when(studentRepository.findById(student2.getId_student())).thenReturn(Optional.ofNullable(student2));
-        Mockito.when(profesorRepository.findById(profesor1.getIdProfesor())).thenReturn(Optional.ofNullable(profesorConEstudiantes));
-        Mockito.when(studentRepository.save(student)).thenReturn(student);
-        Mockito.when(profesorRepository.save(profesor1)).thenReturn(profesor1);
+        int idEstudiante = student.getId_student();
+        int idEstudio = estudio1.getId_study();
 
-        profesorService.addStudentToProfesor(profesor1.getIdProfesor(), student.getId_student());
 
-        Mockito.verify(profesorRepository, times(3)).save(Mockito.any(Profesor.class));
+        Mockito.when(studentRepository.findById(idEstudiante)).thenReturn(Optional.of(estudianteConEstudios));
+        Mockito.when(studentTopicRepository.findById(idEstudio)).thenReturn(Optional.ofNullable(estudio1));
+        Mockito.when(studentRepository.save(Mockito.any(Student.class))).thenReturn(estudianteConEstudios);
+        Mockito.when(studentTopicRepository.save(Mockito.any(StudentTopic.class))).thenReturn(estudio1);
+
+        studentService.addTopicToStudent(idEstudiante, idEstudio);
+
         Mockito.verify(studentRepository, times(3)).save(Mockito.any(Student.class));
-        assertNotNull(profesor1.getStudents());*/
+        Mockito.verify(studentTopicRepository, times(3)).save(Mockito.any(StudentTopic.class));
     }
 
     @Test
     void removeTopicOfStudent() {
+        List<Integer> listaIdsEstudios= new ArrayList<>();
+        listaIdsEstudios.add(estudio1.getId_study());
+
+        Mockito.when(studentRepository.findById(student.getId_student())).thenReturn(Optional.ofNullable(student));
+        Mockito.when(studentTopicRepository.findById(estudio1.getId_study())).thenReturn(Optional.ofNullable(estudio1));
+
+        student.setEstudios(null);
+        estudio1.setStudent(null);
+        Mockito.when(studentRepository.save(Mockito.any(Student.class))).thenReturn(student);
+        Mockito.when(studentTopicRepository.save(Mockito.any(StudentTopic.class))).thenReturn(estudio1);
+
+        studentService.removeTopicOfStudent(student.getId_student(), listaIdsEstudios);
+
+        Mockito.verify(studentRepository, times(3)).save(Mockito.any(Student.class));
+        Mockito.verify(studentTopicRepository, times(3)).save(Mockito.any(StudentTopic.class));
     }
 
     @Test
