@@ -28,7 +28,7 @@ public class StudentTopicServiceImpl implements StudentTopicService{
     @Override
     public StudentTopicOutputDto addTopic(StudentTopicInputDto studentTopicInputDto) throws Exception {
         if (studentTopicInputDto.getAsignatura() == null) {throw new UnprocesableException("El nombre de la asignatura no puede estar vacía", 422);}
-        if (studentTopicInputDto.getComment() == null){throw new UnprocesableException("La longitud de usuario no pueder ser inferior a 6 ni superior a 10 caracteres", 422);}
+        if (studentTopicInputDto.getComment() == null){throw new UnprocesableException("No pude haber comentarios nulos", 422);}
         return studentTopicRepository.save(new StudentTopic(studentTopicInputDto)).studentTopicToOutputDto();
     }
 
@@ -75,7 +75,7 @@ public class StudentTopicServiceImpl implements StudentTopicService{
     }
 
     @Override
-    public Object getTopicById(Integer id) {
+    public StudentTopicOutputDto getTopicById(Integer id) {
         Optional<StudentTopic> topicOpt = studentTopicRepository.findById(id);
         StudentTopic topic = topicOpt.orElseThrow(() -> new EntityNotFoundException("No se ha encontrado la asignatura con id " + id, 404));
 

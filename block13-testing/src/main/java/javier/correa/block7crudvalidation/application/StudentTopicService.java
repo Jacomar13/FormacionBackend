@@ -15,6 +15,6 @@ public interface StudentTopicService {
     void deleteTopicById(int id);
 
     StudentTopicOutputDto updateTopic(int id, StudentTopicInputDto studentTopicInputDto);
-    Object getTopicById(Integer id);
+    StudentTopicOutputDto getTopicById(Integer id);
 
 }

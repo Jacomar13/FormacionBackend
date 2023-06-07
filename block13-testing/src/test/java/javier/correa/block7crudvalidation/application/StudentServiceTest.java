@@ -115,8 +115,8 @@ class StudentServiceTest {
         // En el caso de la búsqueda
         Iterable<StudentSimpleOutputDto> resultado = studentService.getAllStudents(0, 25);
         List<StudentSimpleOutputDto> listaResultado = new ArrayList<>();
-        for (Student studentPasar : listaFicticia) {
-            listaResultado.add(studentPasar.studentSimpleToOutputDto());
+        for (StudentSimpleOutputDto studentPasar : resultado) {
+            listaResultado.add(studentPasar);
         }
         assertNotNull(listaResultado);
         assertEquals(listaFicticia.size(), listaResultado.size());

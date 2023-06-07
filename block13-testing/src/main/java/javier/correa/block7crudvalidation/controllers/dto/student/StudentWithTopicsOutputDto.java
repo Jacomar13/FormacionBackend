@@ -1,16 +1,15 @@
 package javier.correa.block7crudvalidation.controllers.dto.student;
 
 import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicOutputDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
-
+@NoArgsConstructor
+@ToString
 public class StudentWithTopicsOutputDto {
     private int id_student;
     private Integer num_hours_week;
