@@ -1,14 +1,14 @@
 package javier.correa.block7crudvalidation.controllers.dto.profesor;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class ProfesorOutputDto {
     private int id_profesor;
     private String comments;

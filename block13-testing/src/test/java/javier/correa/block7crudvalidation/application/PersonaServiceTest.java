@@ -151,15 +151,15 @@ class PersonaServiceTest {
 
     @Test
     void deletePersonaById() {
-        Optional<Persona> optionalPersona = Optional.of(persona);
+        //Caso 1 en el que comprobamos que la persona no sea ni estudiante ni profesor
         Mockito.when(studentRepository.findByIdPersona(1)).thenReturn(null);
         Mockito.when(profesorRepository.findByIdPersona(1)).thenReturn(null);
-        Mockito.when(personaRepository.findById(1)).thenReturn(optionalPersona);
+        Mockito.when(personaRepository.findById(1)).thenReturn(Optional.of(persona));
 
-        // Act
+        // Borramos la persona
         personaService.deletePersonaById(1);
 
-        // Assert
+        // Comprobamos que se haya hecho corectamente la búsqueda y que se haya borrado la persona
         Mockito.verify(personaRepository, Mockito.times(1)).findById(1);
         Mockito.verify(personaRepository, Mockito.times(1)).deleteById(1);
 
@@ -181,7 +181,6 @@ class PersonaServiceTest {
 
         //Comprobamos que personaDevuelta no sea nula
         assertNotNull(personaDevuelta);
-
 
     }
 

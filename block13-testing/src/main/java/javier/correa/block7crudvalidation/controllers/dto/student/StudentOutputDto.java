@@ -3,12 +3,14 @@ package javier.correa.block7crudvalidation.controllers.dto.student;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class StudentOutputDto {
     private int id_student;
     private Integer num_hours_week;

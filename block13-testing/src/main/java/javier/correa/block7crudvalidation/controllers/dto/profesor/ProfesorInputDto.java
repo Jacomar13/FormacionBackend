@@ -1,11 +1,13 @@
 package javier.correa.block7crudvalidation.controllers.dto.profesor;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class ProfesorInputDto {
     private int id_profesor;
     private int id_persona;

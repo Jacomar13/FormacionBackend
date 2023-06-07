@@ -6,10 +6,7 @@ import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorOutpu
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorSimpleOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.profesor.ProfesorWithStudentOutputDto;
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
