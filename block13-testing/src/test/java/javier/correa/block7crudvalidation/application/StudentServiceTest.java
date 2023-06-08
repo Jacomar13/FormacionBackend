@@ -6,6 +6,7 @@ import javier.correa.block7crudvalidation.controllers.dto.student.StudentOutputD
 import javier.correa.block7crudvalidation.controllers.dto.student.StudentSimpleOutputDto;
 import javier.correa.block7crudvalidation.domain.Persona;
 
+import javier.correa.block7crudvalidation.domain.Profesor;
 import javier.correa.block7crudvalidation.domain.Student;
 import javier.correa.block7crudvalidation.domain.StudentTopic;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
@@ -86,7 +87,7 @@ class StudentServiceTest {
 
     @Test
     void addStudent() throws Exception {
-
+        // Caso cuando estudiante no existe
         // Cuando busque por estudiante o profesor que sean nulos para que no salte la excepción
         Mockito.when(studentRepository.findByIdPersona(1)).thenReturn(null);
         Mockito.when(profesorRepository.findByIdPersona(1)).thenReturn(null);
@@ -98,17 +99,35 @@ class StudentServiceTest {
 
         // Comprobamos que el estudiante devuelto no sea nulo
         assertNotNull(estudianteDevuelto);
+
+        // Caso cuando persona ya es profesor
+        Mockito.when(studentRepository.findByIdPersona(2)).thenReturn(null);
+        Mockito.when(profesorRepository.findByIdPersona(2)).thenReturn(new Profesor());
+        assertThrows(UnprocessableException.class, () -> studentService.addStudent(estudianteIntroducido2));
+
+        // Caso cuando ya es estudiante
+        Mockito.when(studentRepository.findByIdPersona(2)).thenReturn(student2);
+        assertThrows(UnprocessableException.class, () -> studentService.addStudent(estudianteIntroducido2));
     }
 
 
     @Test
     void getAllStudents() {
-
+        // Caso en el que la lista está vacía
         List<Student> listaFicticia = new ArrayList<>();
+
+        //Con esto hacemos las páginas según la lista
+        Page<Student> studentPage;
+
+        studentPage = new PageImpl<>(listaFicticia);
+        Mockito.when(studentRepository.findAll(Mockito.any(PageRequest.class))).thenReturn(studentPage);
+        assertThrows(EntityNotFoundException.class, () -> studentService.getAllStudents(0, 25));
+
+
+        //Caso en el que la lista no está vacía
         listaFicticia.add(student);
         listaFicticia.add(student2);
-        //Con esto hacemos las páginas según la lista
-        Page<Student> studentPage = new PageImpl<>(listaFicticia);
+        studentPage = new PageImpl<>(listaFicticia);
 
         Mockito.when(studentRepository.findAll(Mockito.any(PageRequest.class))).thenReturn(studentPage);
         Mockito.when(personaRepository.findById(1)).thenReturn(Optional.ofNullable(persona));
@@ -122,6 +141,7 @@ class StudentServiceTest {
         }
         assertNotNull(listaResultado);
         assertEquals(listaFicticia.size(), listaResultado.size());
+
     }
 
     @Test
