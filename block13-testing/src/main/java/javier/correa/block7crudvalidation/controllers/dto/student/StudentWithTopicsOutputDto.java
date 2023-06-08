@@ -10,6 +10,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Generated
 public class StudentWithTopicsOutputDto {
     private int id_student;
     private Integer num_hours_week;

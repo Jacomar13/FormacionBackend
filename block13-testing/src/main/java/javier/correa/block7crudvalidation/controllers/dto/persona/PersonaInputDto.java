@@ -2,10 +2,12 @@ package javier.correa.block7crudvalidation.controllers.dto.persona;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 
 import java.util.Date;
 @Data
 @AllArgsConstructor
+@Generated
 public class PersonaInputDto {
     private Integer id_persona;
 

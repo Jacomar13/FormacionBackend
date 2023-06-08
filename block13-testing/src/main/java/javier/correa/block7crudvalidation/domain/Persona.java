@@ -14,6 +14,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class Persona {
     @Id
     @GeneratedValue

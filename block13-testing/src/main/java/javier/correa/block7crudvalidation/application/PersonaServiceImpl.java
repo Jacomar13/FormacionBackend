@@ -9,7 +9,7 @@ import javier.correa.block7crudvalidation.domain.Profesor;
 import javier.correa.block7crudvalidation.domain.Student;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
 import javier.correa.block7crudvalidation.domain.Persona;
-import javier.correa.block7crudvalidation.domain.exception.UnprocesableException;
+import javier.correa.block7crudvalidation.domain.exception.UnprocessableException;
 import javier.correa.block7crudvalidation.repository.PersonaRepository;
 import javier.correa.block7crudvalidation.repository.ProfesorRepository;
 import javier.correa.block7crudvalidation.repository.StudentRepository;
@@ -32,16 +32,16 @@ public class PersonaServiceImpl implements PersonaService{
     ProfesorRepository profesorRepository;
 
     @Override
-    public PersonaOutputDto addPersona(PersonaInputDto persona) throws UnprocesableException {
-        if (persona.getUsuario()== null) {throw new UnprocesableException("El usuario no puede estar vacío", 422);}
-        if (persona.getUsuario().length() < 6 || persona.getUsuario().length() > 10){throw new UnprocesableException("La longitud de usuario no pueder ser inferior a 6 ni superior a 10 caracteres", 422);}
-        if (Objects.isNull(persona.getPassword()) || persona.getPassword().isBlank()) {throw new UnprocesableException("La contraseña no puede estar vacía", 422);}
-        if (persona.getName() == null) {throw new UnprocesableException("El nombre no puede estar vacío", 422);}
-        if (persona.getCompany_email() == null) {throw new UnprocesableException("El correo profesional no puede estar vacío", 422);}
-        if (persona.getPersonal_email() == null) {throw new UnprocesableException("El correo personal no puede estar vacío", 422);}
-        if (persona.getCity() == null) {throw new UnprocesableException("La ciudad no puede estar vacía", 422);}
-        if (!persona.isActive()) {throw new UnprocesableException("El usuario no puede estar NO ACTIVADO", 422);}
-        if (persona.getCreated_date() == null) {throw new UnprocesableException("La fecha de creación no puede estar vacía", 422);}
+    public PersonaOutputDto addPersona(PersonaInputDto persona) throws UnprocessableException {
+        if (persona.getUsuario()== null) {throw new UnprocessableException("El usuario no puede estar vacío", 422);}
+        if (persona.getUsuario().length() < 6 || persona.getUsuario().length() > 10){throw new UnprocessableException("La longitud de usuario no pueder ser inferior a 6 ni superior a 10 caracteres", 422);}
+        if (Objects.isNull(persona.getPassword()) || persona.getPassword().isBlank()) {throw new UnprocessableException("La contraseña no puede estar vacía", 422);}
+        if (persona.getName() == null) {throw new UnprocessableException("El nombre no puede estar vacío", 422);}
+        if (persona.getCompany_email() == null) {throw new UnprocessableException("El correo profesional no puede estar vacío", 422);}
+        if (persona.getPersonal_email() == null) {throw new UnprocessableException("El correo personal no puede estar vacío", 422);}
+        if (persona.getCity() == null) {throw new UnprocessableException("La ciudad no puede estar vacía", 422);}
+        if (!persona.isActive()) {throw new UnprocessableException("El usuario no puede estar NO ACTIVADO", 422);}
+        if (persona.getCreated_date() == null) {throw new UnprocessableException("La fecha de creación no puede estar vacía", 422);}
 
         Persona personaSaved = personaRepository.save(new Persona(persona));
         return personaSaved.personaToOutputDto();
@@ -119,15 +119,15 @@ public class PersonaServiceImpl implements PersonaService{
 
 
     @Override
-    public void deletePersonaById(int id) throws UnprocesableException {
+    public void deletePersonaById(int id) throws UnprocessableException {
         Persona persona = personaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Persona no encontrada", 404));
         Student studentExists= studentRepository.findByIdPersona(id);
         Profesor profesorExists = profesorRepository.findByIdPersona(id);
         if (studentExists != null) {
-            throw new UnprocesableException("Esta persona ya es estudiante, si deseas eliminar esta persona, debes eliminar antes el estudiante", 422);
+            throw new UnprocessableException("Esta persona ya es estudiante, si deseas eliminar esta persona, debes eliminar antes el estudiante", 422);
         }
         if (profesorExists != null) {
-            throw new UnprocesableException("Esta persona ya es profesor, si deseas eliminar esta persona, debes eliminar antes el profesor", 422);
+            throw new UnprocessableException("Esta persona ya es profesor, si deseas eliminar esta persona, debes eliminar antes el profesor", 422);
         }
         personaRepository.deleteById(persona.getId_persona());
     }

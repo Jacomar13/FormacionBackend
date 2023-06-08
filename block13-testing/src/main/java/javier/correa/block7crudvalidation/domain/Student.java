@@ -19,6 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "estudiantes")
+@Generated
 
 public class Student {
     @Id

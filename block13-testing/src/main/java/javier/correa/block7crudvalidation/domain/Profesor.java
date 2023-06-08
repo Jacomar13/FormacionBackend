@@ -18,6 +18,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 
 public class Profesor {
 

@@ -8,6 +8,8 @@ import javier.correa.block7crudvalidation.domain.Persona;
 
 import javier.correa.block7crudvalidation.domain.Student;
 import javier.correa.block7crudvalidation.domain.StudentTopic;
+import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
+import javier.correa.block7crudvalidation.domain.exception.UnprocessableException;
 import javier.correa.block7crudvalidation.repository.PersonaRepository;
 import javier.correa.block7crudvalidation.repository.ProfesorRepository;
 import javier.correa.block7crudvalidation.repository.StudentRepository;
@@ -124,6 +126,8 @@ class StudentServiceTest {
 
     @Test
     void getStudentByIdAndOutputType() {
+
+        // Caso en el que el estudiante existe y las dos salidas están correctas
         int id = student.getId_student();
         Mockito.when(studentRepository.findById(id)).thenReturn(Optional.ofNullable(student));
 
@@ -139,10 +143,21 @@ class StudentServiceTest {
 
         assertNotNull(estudianteSimple);
         assertNotNull(estudianteCompleto);
+
+        //Caso en el que estudiante existe pero la salida no está correcta
+        assertThrows(UnprocessableException.class, () -> studentService.getStudentByIdAndOutputType(id, "hola"));
+
+        //Caso en el que los formatos de salida son correctos pero el estudiante no existe
+        int id2 = 2;
+        Mockito.when(studentRepository.findById(id2)).thenReturn(Optional.empty());
+        assertThrows(EntityNotFoundException.class, () -> studentService.getStudentByIdAndOutputType(id2, "full"));
+        assertThrows(EntityNotFoundException.class, () -> studentService.getStudentByIdAndOutputType(id2, "simple"));
     }
 
     @Test
     void addTopicToStudent() {
+
+        // Caso en el que estudiante existe, asignatura también, y se le ha asignado ya una asignatura
         Set<StudentTopic> listaEstudios = new HashSet<>();
         listaEstudios.add(estudio1);
         Student estudianteConEstudios = student;
@@ -161,10 +176,27 @@ class StudentServiceTest {
 
         Mockito.verify(studentRepository, times(3)).save(Mockito.any(Student.class));
         Mockito.verify(studentTopicRepository, times(3)).save(Mockito.any(StudentTopic.class));
+
+        // Caso en el que ya se le ha asignado una asignatura a estudiante
+        assertThrows(UnprocessableException.class, () -> studentService.addTopicToStudent(idEstudiante, idEstudio));
+
+        // Caso en el que la asignatura no existe
+        Mockito.when(studentRepository.findById(2)).thenReturn(Optional.of(student2));
+        Mockito.when(studentTopicRepository.findById(2)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> studentService.addTopicToStudent(2, 2));
+
+        // Caso en el que el estudiante no existe
+        Mockito.when(studentRepository.findById(3)).thenReturn(Optional.empty());
+        assertThrows(EntityNotFoundException.class, () -> studentService.addTopicToStudent(3, 3));
+
+
     }
 
     @Test
     void removeTopicOfStudent() {
+
+        //Caso en el que el estudiante existe y las asignaturas existen
         List<Integer> listaIdsEstudios= new ArrayList<>();
         listaIdsEstudios.add(estudio1.getId_study());
 
@@ -180,23 +212,56 @@ class StudentServiceTest {
 
         Mockito.verify(studentRepository, times(3)).save(Mockito.any(Student.class));
         Mockito.verify(studentTopicRepository, times(3)).save(Mockito.any(StudentTopic.class));
+
+        // Caso en el que el estudiante existe pero no la asignatura
+        List<Integer> listaIdsEstudiosNulo= new ArrayList<>();
+        listaIdsEstudiosNulo.add(estudio2.getId_study());
+
+        Mockito.when(studentRepository.findById(2)).thenReturn(Optional.ofNullable(student2));
+        Mockito.when(studentTopicRepository.findById(2)).thenReturn(Optional.empty());
+        assertThrows(EntityNotFoundException.class, () -> studentService.removeTopicOfStudent(2, listaIdsEstudiosNulo));
+
+        // Caso en el que estudiante no existe
+        Mockito.when(studentRepository.findById(3)).thenReturn(Optional.empty());
+        assertThrows(EntityNotFoundException.class, () -> studentService.removeTopicOfStudent(3, listaIdsEstudiosNulo));
+
+        // Caso en el que la lista de IDs está vacía
+        List<Integer> listaVacia= new ArrayList<>();
+        assertThrows(UnprocessableException.class, () -> studentService.removeTopicOfStudent(4, listaVacia));
     }
 
     @Test
     void deleteStudentById() {
+
+        //Caso En el que encuentra un estudiante sin alumnos
         int id = 1;
-        Set<StudentTopic> studentTopicsList = new HashSet<>();
+        Set<StudentTopic> studentTopicsListEmpty = new HashSet<>();
         Mockito.when(studentRepository.findById(id)).thenReturn(Optional.ofNullable(student));
-        Mockito.when(profesorRepository.findById(id)).thenReturn(null);
-        Mockito.when(studentTopicRepository.findByIdStudent(id)).thenReturn(studentTopicsList);
+        Mockito.when(studentTopicRepository.findByIdStudent(id)).thenReturn(studentTopicsListEmpty);
 
         studentService.deleteStudentById(estudianteIntroducido1.getId_student());
 
         Mockito.verify(studentRepository, times(1)).deleteById(Mockito.anyInt());
+
+        //Caso en el que la lista tiene asignaturas
+
+        Set<StudentTopic> studentTopicsList = new HashSet<>();
+        studentTopicsList.add(estudio1);
+        Mockito.when(studentRepository.findById(2)).thenReturn(Optional.ofNullable(student2));
+        Mockito.when(studentTopicRepository.findByIdStudent(2)).thenReturn(studentTopicsList);
+
+        assertThrows(UnprocessableException.class, () -> studentService.deleteStudentById(2));
+
+        // Caso en el que el estudiante no es encontrado
+        Mockito.when(studentRepository.findById(3)).thenReturn(Optional.empty());
+        assertThrows(EntityNotFoundException.class, () -> studentService.deleteStudentById(3));
+
     }
 
     @Test
     void updateStudent() throws Exception {
+
+        // Caso en el que el estudiante existe y es persona
         int id = 1;
         StudentInputDto updatedStudentInput = new StudentInputDto(1, 1, 27, "Ha empeorado", "DAW");
         Student updatedStudent = new Student( updatedStudentInput);
@@ -212,5 +277,19 @@ class StudentServiceTest {
 
         Mockito.verify(studentRepository, times(4)).save(Mockito.any(Student.class));
         assertEquals(estudianteDevuelto.getComments(), updatedStudentInput.getComments());
+
+        // Caso en el que estudiante existe pero como persona no existe
+
+        StudentInputDto updatedStudentInputNotPersona = new StudentInputDto(2, 2, 27, "Ha empeorado", "DAW");
+        Mockito.when(studentRepository.findById(2)).thenReturn(Optional.ofNullable(student2));
+        Mockito.when(personaRepository.findById(2)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> studentService.updateStudent(2, updatedStudentInputNotPersona));
+
+        // Caso en el que el estudiante no existe
+        Mockito.when(studentRepository. findById(3)).thenReturn(Optional.empty());
+        StudentInputDto notStudent = new StudentInputDto(3, 3, 27, "Ha empeorado", "DAW");
+        assertThrows(EntityNotFoundException.class, () -> studentService.updateStudent(2, notStudent));
+
     }
 }

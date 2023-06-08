@@ -7,7 +7,7 @@ import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTo
 import javier.correa.block7crudvalidation.domain.Student;
 import javier.correa.block7crudvalidation.domain.StudentTopic;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
-import javier.correa.block7crudvalidation.domain.exception.UnprocesableException;
+import javier.correa.block7crudvalidation.domain.exception.UnprocessableException;
 import javier.correa.block7crudvalidation.repository.StudentRepository;
 import javier.correa.block7crudvalidation.repository.StudentTopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,8 @@ public class StudentTopicServiceImpl implements StudentTopicService{
 
     @Override
     public StudentTopicOutputDto addTopic(StudentTopicInputDto studentTopicInputDto) throws Exception {
-        if (studentTopicInputDto.getAsignatura() == null) {throw new UnprocesableException("El nombre de la asignatura no puede estar vacía", 422);}
-        if (studentTopicInputDto.getComment() == null){throw new UnprocesableException("No pude haber comentarios nulos", 422);}
+        if (studentTopicInputDto.getAsignatura() == null) {throw new UnprocessableException("El nombre de la asignatura no puede estar vacía", 422);}
+        if (studentTopicInputDto.getComment() == null){throw new UnprocessableException("No pude haber comentarios nulos", 422);}
         return studentTopicRepository.save(new StudentTopic(studentTopicInputDto)).studentTopicToOutputDto();
     }
 

@@ -3,10 +3,7 @@ package javier.correa.block7crudvalidation.domain;
 import jakarta.persistence.*;
 import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicInputDto;
 import javier.correa.block7crudvalidation.controllers.dto.studentTopic.StudentTopicOutputDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 import java.util.Date;
@@ -16,6 +13,7 @@ import java.util.Date;
 @Table(name = "estudios")
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 
 public class StudentTopic {
     @Id

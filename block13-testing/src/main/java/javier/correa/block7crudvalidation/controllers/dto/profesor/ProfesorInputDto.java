@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Generated
 public class ProfesorInputDto {
     private int id_profesor;
     private int id_persona;

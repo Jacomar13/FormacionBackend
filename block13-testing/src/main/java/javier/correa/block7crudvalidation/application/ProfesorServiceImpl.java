@@ -9,7 +9,7 @@ import javier.correa.block7crudvalidation.domain.Persona;
 import javier.correa.block7crudvalidation.domain.Profesor;
 import javier.correa.block7crudvalidation.domain.Student;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
-import javier.correa.block7crudvalidation.domain.exception.UnprocesableException;
+import javier.correa.block7crudvalidation.domain.exception.UnprocessableException;
 import javier.correa.block7crudvalidation.repository.PersonaRepository;
 import javier.correa.block7crudvalidation.repository.ProfesorRepository;
 import javier.correa.block7crudvalidation.repository.StudentRepository;
@@ -36,12 +36,12 @@ public class ProfesorServiceImpl implements ProfesorService{
     public ProfesorOutputDto addProfesor(ProfesorInputDto profesorInputDto) throws Exception {
         Student studentExist= studentRepository.findByIdPersona(profesorInputDto.getId_persona());
         if (studentExist != null) {
-            throw new UnprocesableException("La persona con id: " + profesorInputDto.getId_persona()+", ya está asignada como un estudiante",422);
+            throw new UnprocessableException("La persona con id: " + profesorInputDto.getId_persona()+", ya está asignada como un estudiante",422);
         }
 
         Profesor profesorExists = profesorRepository.findByIdPersona(profesorInputDto.getId_persona());
         if (profesorExists != null) {
-            throw new UnprocesableException("El profesor con id: " + profesorInputDto.getId_persona() +", ya existe",422);
+            throw new UnprocessableException("El profesor con id: " + profesorInputDto.getId_persona() +", ya existe",422);
         }
 
         Persona persona = personaRepository.findById(profesorInputDto.getId_persona())
@@ -131,7 +131,7 @@ public class ProfesorServiceImpl implements ProfesorService{
                 .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el profesor con id: " + id, 404));
         Set<Student> studentList = studentRepository.findByIdProfesor(id);
         if (!studentList.isEmpty()){
-            throw new UnprocesableException("No puedes eliminar profesor ya que tiene estudiantes",422);
+            throw new UnprocessableException("No puedes eliminar profesor ya que tiene estudiantes",422);
 
         }
         Persona persona = profesor.getPersona();

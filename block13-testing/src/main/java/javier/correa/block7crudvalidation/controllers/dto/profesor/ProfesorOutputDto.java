@@ -9,6 +9,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Generated
 public class ProfesorOutputDto {
     private int id_profesor;
     private String comments;

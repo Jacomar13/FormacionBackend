@@ -10,6 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Generated
 public class StudentTopicInputDto {
 
     private int id_study;

@@ -2,7 +2,7 @@ package javier.correa.block7crudvalidation.controllers;
 
 import javier.correa.block7crudvalidation.domain.exception.CustomError;
 import javier.correa.block7crudvalidation.domain.exception.EntityNotFoundException;
-import javier.correa.block7crudvalidation.domain.exception.UnprocesableException;
+import javier.correa.block7crudvalidation.domain.exception.UnprocessableException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,10 +22,10 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
-    @ExceptionHandler(UnprocesableException.class)
+    @ExceptionHandler(UnprocessableException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public final ResponseEntity<CustomError> handleUnprocesableException(UnprocesableException ex, WebRequest request) {
+    public final ResponseEntity<CustomError> handleUnprocesableException(UnprocessableException ex, WebRequest request) {
         CustomError customError = new CustomError(new Date(), ex.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY.value());
-        return new ResponseEntity<CustomError>(customError, HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>(customError, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }
