@@ -3,11 +3,14 @@ package javier.correa.block7crudvalidation.controllers.dto.persona;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+
 @Generated
 public class PersonaOutputDto {
     private Integer id_persona;
